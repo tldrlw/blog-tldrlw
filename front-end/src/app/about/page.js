@@ -2,7 +2,7 @@ export default function About() {
   return (
     <main>
       <h1 className='mb-2 font-bold text-customOrangeLogo md:mb-4 md:text-lg'>
-        Too Long Didn't Read{' '}
+        Too Long Didn&apos;t Read{' '}
         <span className='!important italic'>Listen Watch</span>
       </h1>
       <h1 className='mb-2 underline md:mb-4 md:text-lg'>About</h1>
@@ -26,8 +26,8 @@ export default function About() {
         </p>
         <p className='mb-2 text-gray-700 md:mb-4'>
           <span className='text-customOrangeLogo'>Over</span> the past seven
-          years, I’ve built a career in software development, working with a
-          variety of cutting-edge technologies and gaining valuable experience
+          years, I&apos;ve built a career in software development, working with
+          a variety of cutting-edge technologies and gaining valuable experience
           across different domains. My professional journey has allowed me to
           combine my analytical mindset with my natural curiosity for
           problem-solving. In many ways, my love for software development is a
@@ -40,28 +40,29 @@ export default function About() {
           random appliances around the house, fascinated by how things worked,
           only to challenge myself to put them back together, often in a
           different way. That same spirit of curiosity and exploration drives my
-          work today—whether it’s writing code or designing complex systems. At
-          the same time, my passion for Formula 1 has only intensified as I’ve
-          grown to understand the nuances of motorsport—from the aerodynamics of
-          the cars to the intricate race strategies.
+          work today—whether it&apos;s writing code or designing complex
+          systems. At the same time, my passion for Formula 1 has only
+          intensified as I&apos;ve grown to understand the nuances of
+          motorsport—from the aerodynamics of the cars to the intricate race
+          strategies.
         </p>
         <p className='mb-2 text-gray-700 md:mb-4'>
-          <span className='text-customOrangeLogo'>Even</span> now, I’m
+          <span className='text-customOrangeLogo'>Even</span> now, I&apos;m
           completely captivated whenever I hear the roar of the turbo-hybrid V6
           engines or when major developments in the sport are announced. For
           instance, the news of Adrian Newey—arguably the greatest designer and
           aerodynamicist in Formula 1 history—joining Aston Martin Racing in
           time for the new engine and aerodynamic regulations set to take effect
-          in 2026 filled me with excitement. It’s moments like these that
+          in 2026 filled me with excitement. It&apos;s moments like these that
           rekindle my deep connection to the sport.
         </p>
         <p className='mb-2 text-gray-700 md:mb-4'>
           <span className='text-customOrangeLogo'>However,</span> as much as I
-          love following Formula 1, I’ve become increasingly frustrated with how
-          social media platforms dominate the space for motorsports news and
-          updates. The repetitive act of doomscrolling, where users are trapped
-          in a cycle of negative and often irrelevant content, has made it
-          difficult to stay focused on what truly matters.
+          love following Formula 1, I&apos;ve become increasingly frustrated
+          with how social media platforms dominate the space for motorsports
+          news and updates. The repetitive act of doomscrolling, where users are
+          trapped in a cycle of negative and often irrelevant content, has made
+          it difficult to stay focused on what truly matters.
         </p>
         <p className='mb-2 text-gray-700 md:mb-4'>
           <span className='text-customOrangeLogo'>Research</span> shows that
@@ -116,7 +117,7 @@ export default function About() {
         </p>
         <p className='mb-2 text-gray-700'>
           <span className='text-customOrangeLogo'>These</span> platforms often
-          reward sensationalist content, which further detracts from users’
+          reward sensationalist content, which further detracts from users&apos;
           ability to focus on quality information and real-time updates they
           actually care about. This creates a vicious cycle where important,
           thoughtful conversations are drowned out by viral content designed to
@@ -168,12 +169,12 @@ export default function About() {
       <section className='mb-2 text-sm md:mb-4 md:text-base'>
         <p className='mb-2 text-gray-700 md:mb-4'>
           <span className='text-customOrangeLogo'>Beyond</span> racing content,
-          I also want to share the tools and technologies that I’ve been
-          developing as part of this ongoing project. I’m using industry-leading
-          technologies like AWS for cloud infrastructure, Terraform for
-          infrastructure as code, Docker for containerization, CI/CD pipelines
-          to automate software delivery, and GitHub Actions to streamline
-          continuous integration and deployment workflows.
+          I also want to share the tools and technologies that I&apos;ve been
+          developing as part of this ongoing project. I&apos;m using
+          industry-leading technologies like AWS for cloud infrastructure,
+          Terraform for infrastructure as code, Docker for containerization,
+          CI/CD pipelines to automate software delivery, and GitHub Actions to
+          streamline continuous integration and deployment workflows.
         </p>
         <p className='mb-2 text-gray-700'>
           <span className='text-customOrangeLogo'>These</span> tools enable me

@@ -1,13 +1,13 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
-  atomDark,
   base16AteliersulphurpoolLight,
-  coy,
-  dark,
-  okaidia,
-  solarizedlight,
+  // atomDark,
+  // coy,
+  // dark,
+  // okaidia,
+  // solarizedlight,
   // ^ has a nice beige background
-  tomorrow,
+  // tomorrow,
 } from 'react-syntax-highlighter/dist/cjs/styles/prism'; // You can choose other themes if you prefer
 
 export default function codeBlock({
