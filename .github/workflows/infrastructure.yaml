@@ -1,0 +1,70 @@
+name: infrastructure
+
+run-name: ${{ github.event_name }}
+# example contents of github context: https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/accessing-contextual-information-about-workflow-runs#github-context
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - infrastructure/**
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Docker image tag to deploy"
+        required: true
+        type: string
+
+env:
+  AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  # ^ credentials for deployment to AWS
+  TERRAFORM_VERSION: 1.7.4
+
+jobs:
+  terraform:
+    name: terraform
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout the repository to the runner
+        uses: actions/checkout@v2
+
+      - name: setup terraform with specified version on the runner
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: $TERRAFORM_VERSION
+
+      - name: init
+        id: init
+        working-directory: ./infrastructure
+        run: terraform init
+
+      - name: validate
+        id: validate
+        working-directory: ./infrastructure
+        run: terraform validate
+
+      - name: plan dev
+        id: plan-dev
+        if: ${{ github.ref == 'refs/heads/dev' }}
+        env:
+          TF_VAR_ENV: dev
+          TF_VAR_IMAGE_TAG: ${{ github.event.inputs.image_tag }}
+        working-directory: ./infrastructure
+        run: terraform plan
+        continue-on-error: false
+
+      - name: apply dev
+        id: apply-dev
+        if: ${{ github.ref == 'refs/heads/dev' }}
+        env:
+          TF_VAR_ENV: dev
+          TF_VAR_IMAGE_TAG: ${{ github.event.inputs.image_tag }}
+        working-directory: ./infrastructure
+        run: terraform apply -auto-approve
+# notes:
+# terraform with github actions: https://spacelift.io/blog/github-actions-terraform
+# basics of github actions: https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions
+# workflow syntax: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on

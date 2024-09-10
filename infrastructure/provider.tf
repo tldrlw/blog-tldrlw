@@ -6,6 +6,7 @@ terraform {
     dynamodb_table = "tfstate-tldrlw-blog"
     encrypt        = true
   }
+  # bucket and dydb table managed locally in /Users/refayathaque/tfstate
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -16,30 +17,25 @@ terraform {
 }
 
 provider "aws" {
-  # profile = "refayatabid"
-  # ^ uncomment when running tf locally
-  # ^ comment out when running tf in github workflow
-  # The AWS provider block in your Terraform configuration can include the profile, which will be used for provisioning resources. 
-  # However, this does not affect the backend configuration, which is why the environment variable method is typically used for backend authentication.
-  # need to `export AWS_PROFILE=refayatabid` before running terraform init for this reason...
   region = "us-east-1"
   default_tags {
     tags = {
       ManagedBy = "Terraform"
+      Repo      = "https://github.com/tldrlw/blog-tldrlw/tree/main/infrastructure"
     }
   }
 }
 
 provider "aws" {
-  # profile = "refayatabid"
-  # ^ uncomment when running tf locally
-  # ^ comment out when running tf in github workflow
-  alias  = "hyderabad"
-  region = "ap-south-2"
+  region = "us-west-2"
+  alias  = "usw2"
+  # oregon
   default_tags {
     tags = {
       ManagedBy = "Terraform"
-      Repo      = "https://github.com/refayatabid/gc-reservations/tree/dev/infrastructure"
+      Repo      = "https://github.com/tldrlw/blog-tldrlw/tree/main/infrastructure"
     }
   }
 }
+
+# list of all regions: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html
