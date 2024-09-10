@@ -8,6 +8,7 @@ export default function Home() {
 
   return (
     <main>
+      <p>Home</p>
       <p>
         {buildTime} / {image}
       </p>
