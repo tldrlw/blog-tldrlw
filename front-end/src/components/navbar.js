@@ -57,19 +57,19 @@ export default function Navbar() {
           >
             About
           </Link>
-          <Link
+          {/* <Link
             href="/blogs"
             className={`hover:underline ${isActive("/blogs") ? "underline" : ""}`}
           >
             Blogs
-          </Link>
+          </Link> */}
         </div>
       </div>
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
         <div className="bg-customBlueLogo text-customRed md:hidden">
-          <ul className="my-2 flex flex-col space-y-3 text-right">
+          <ul className="mb-1 mt-2 flex flex-col space-y-3 text-right">
             <li>
               <Link
                 href="/"
@@ -90,7 +90,7 @@ export default function Navbar() {
                 About
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 href="/blogs"
                 className={`mr-7 block hover:underline ${
@@ -99,7 +99,7 @@ export default function Navbar() {
               >
                 Blogs
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       )}
