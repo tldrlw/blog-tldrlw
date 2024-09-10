@@ -1,10 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    unoptimized: true,
-  },
-  // distDir: 'dist',
-  // output: 'standalone',
+  // images: {
+  //   unoptimized: true,
+  // },
 };
 
 export default nextConfig;
