@@ -8,7 +8,6 @@ export default function Home() {
 
   return (
     <main>
-      <p>blog.tldrlw.com</p>
       <p>
         {buildTime} / {image}
       </p>
