@@ -11,6 +11,7 @@ export default function Header() {
             className='h-auto w-1/2 md:w-1/4'
             width={1500}
             height={512}
+            unoptimized
           />
         </div>
       </div>

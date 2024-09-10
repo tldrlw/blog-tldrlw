@@ -1,7 +1,7 @@
 export default function About() {
   return (
     <main>
-      <h1 className='mb-2 font-bold text-customOrangeLogo md:mb-4 md:text-lg'>
+      <h1 className='text-customOrangeLogo mb-2 font-bold md:mb-4 md:text-lg'>
         Too Long Didn&apos;t Read{' '}
         <span className='!important italic'>Listen Watch</span>
       </h1>
