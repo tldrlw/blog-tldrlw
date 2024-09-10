@@ -1,0 +1,27 @@
+# General
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+*.env
+*.env.local
+.env.*.local
+
+# Next.js in the "front-end" directory
+/front-end/.next/
+/front-end/out/
+/front-end/build/
+/front-end/node_modules/
+/front-end/coverage/
+/front-end/*.tsbuildinfo
+
+# Terraform in the "infrastructure" directory
+/infrastructure/terraform.tfstate
+/infrastructure/terraform.tfstate.*
+/infrastructure/.terraform/
+/infrastructure/.terraform.lock.hcl
+
+# IDE specific
+.vscode/
+.idea/
