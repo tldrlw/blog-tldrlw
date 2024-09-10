@@ -52,13 +52,13 @@ jobs:
         working-directory: ./front-end
         run: |
           docker build --build-arg BUILD_TIME="${{ env.CURRENT_TIME }}" \
-                       --build-arg IMAGE="${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.SHORT_SHA }}" \
-                       -t "${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.SHORT_SHA }}" .
+                       --build-arg IMAGE="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.SHORT_SHA }}" \
+                       -t "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.SHORT_SHA }}" .
 
       - name: run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.20.0
         with:
-          image-ref: "${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.SHORT_SHA }}"
+          image-ref: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.SHORT_SHA }}"
           format: "table"
           exit-code: "1"
           ignore-unfixed: true
@@ -67,7 +67,7 @@ jobs:
 
       - name: push Docker image to ECR
         run: |
-          docker push ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.SHORT_SHA }}
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.SHORT_SHA }}
 
       - name: trigger Terraform workflow
         run: |
