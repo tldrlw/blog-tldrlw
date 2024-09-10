@@ -9,7 +9,7 @@ yarn-error.log*
 .env.*.local
 
 # Next.js in the "front-end" directory
-# /front-end/.next/
+/front-end/.next/
 /front-end/out/
 /front-end/build/
 /front-end/node_modules/
