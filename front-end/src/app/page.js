@@ -1,4 +1,4 @@
-import CodeBlock from "@/components/codeBlock";
+import CodeBlock from '@/components/codeBlock';
 
 const yamlCode = `
 version: "3"
@@ -20,13 +20,13 @@ export default function Home() {
   return (
     <main>
       <CodeBlock
-        filePath={"hello.tf"}
-        fileExtension={"yaml"}
+        filePath={'hello.tf'}
+        fileExtension={'yaml'}
         codeBlock={yamlCode}
       ></CodeBlock>
       <CodeBlock
-        filePath={"hello.tf"}
-        fileExtension={"yaml"}
+        filePath={'hello.tf'}
+        fileExtension={'yaml'}
         codeBlock={hclCode}
       ></CodeBlock>
     </main>

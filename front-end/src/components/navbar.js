@@ -1,8 +1,8 @@
-"use client"; // Ensure this is at the top of the file
+'use client'; // Ensure this is at the top of the file
 
-import { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation"; // Updated hook for App Router
+import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation'; // Updated hook for App Router
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,42 +18,42 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-customBlueLogo text-customRed pb-4 text-sm md:text-base">
-      <div className="container mx-auto flex items-center justify-between">
+    <nav className='bg-customBlueLogo pb-4 text-sm text-customRed md:text-base'>
+      <div className='container mx-auto flex items-center justify-between'>
         {/* Hamburger Menu Button (Mobile) */}
-        <div className="ml-auto mr-6 md:hidden">
+        <div className='ml-auto mr-6 md:hidden'>
           <button
             onClick={toggleMenu}
-            className="text-customRed focus:outline-none"
+            className='text-customRed focus:outline-none'
           >
             <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+              className='h-6 w-6'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+              xmlns='http://www.w3.org/2000/svg'
             >
               <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='M4 6h16M4 12h16M4 18h16'
               ></path>
             </svg>
           </button>
         </div>
 
         {/* Desktop Menu */}
-        <div className="ml-auto hidden space-x-6 md:flex">
+        <div className='ml-auto hidden space-x-6 md:flex'>
           <Link
-            href="/"
-            className={`hover:underline ${isActive("/") ? "underline" : ""}`}
+            href='/'
+            className={`hover:underline ${isActive('/') ? 'underline' : ''}`}
           >
             Home
           </Link>
           <Link
-            href="/about"
-            className={`hover:underline ${isActive("/about") ? "underline" : ""}`}
+            href='/about'
+            className={`hover:underline ${isActive('/about') ? 'underline' : ''}`}
           >
             About
           </Link>
@@ -68,13 +68,13 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="bg-customBlueLogo text-customRed md:hidden">
-          <ul className="mb-1 mt-2 flex flex-col space-y-3 text-right">
+        <div className='bg-customBlueLogo text-customRed md:hidden'>
+          <ul className='mb-1 mt-2 flex flex-col space-y-3 text-right'>
             <li>
               <Link
-                href="/"
+                href='/'
                 className={`mr-7 block hover:underline ${
-                  isActive("/") ? "underline" : ""
+                  isActive('/') ? 'underline' : ''
                 }`}
               >
                 Home
@@ -82,9 +82,9 @@ export default function Navbar() {
             </li>
             <li>
               <Link
-                href="/about"
+                href='/about'
                 className={`mr-7 block hover:underline ${
-                  isActive("/about") ? "underline" : ""
+                  isActive('/about') ? 'underline' : ''
                 }`}
               >
                 About
