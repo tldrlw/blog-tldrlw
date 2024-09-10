@@ -17,5 +17,20 @@
     "react/no-unescaped-entities": "error",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.js", "**/*.jsx"],
+      "rules": {
+        "prettier/prettier": [
+          "error",
+          {
+            "singleQuote": true,
+            "jsxSingleQuote": true,
+            "tailwindConfig": false // Disable Tailwind class sorting
+          }
+        ]
+      }
+    }
+  ]
 }
