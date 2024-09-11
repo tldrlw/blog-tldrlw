@@ -235,15 +235,15 @@ export default function Blog1() {
 
       <section className='mb-2 text-sm text-gray-700 md:mb-4 md:text-base'>
         <p className='mb-2 md:mb-4'>
-          In addition to multiple *tldrlw.com apps, I consistently work on other
-          projects for friends, family and partnerships, therefore, I needed to
-          build a template to deploy Next.js apps efficiently and reliably.
-          Having worked out a good system I want to share this with others who
-          might be looking for a similar solution. This guide will take a very
-          barebones Next.js app and deploy it to ECS (Elastic Container
-          Service), and I&apos;m assuming you have a basic understanding of
-          Terraform and how it works, creating an AWS IAM (identity access
-          management) User with a Secret Key and Secret Access Key to run
+          In addition to multiple *.tldrlw.com apps, I consistently work on
+          other projects for friends, family and partnerships, therefore, I
+          needed to build a template to deploy Next.js apps efficiently and
+          reliably. Having worked out a good system I want to share this with
+          others who might be looking for a similar solution. This guide will
+          take a very barebones Next.js app and deploy it to ECS (Elastic
+          Container Service). I&apos;m assuming you have a basic understanding
+          of Terraform and how it works, creating an AWS IAM (Identity Access
+          Management) User with a Secret Key and Secret Access Key to run
           Terraform{' '}
           <a
             className='text-blue-500 hover:underline'
@@ -251,7 +251,7 @@ export default function Blog1() {
           >
             locally
           </a>{' '}
-          against your AWS account, and a basic understanding of bash scripting.
+          against your AWS account, and a basic understanding of Bash scripting.
           Code references for everything we will do can be found{' '}
           <a
             className='text-blue-500 hover:underline'
@@ -261,8 +261,8 @@ export default function Blog1() {
           </a>
         </p>
         <p className='mb-2 md:mb-4'>
-          First step is to set up your Terraform remote backend using S3 and
-          DynamoDB, use
+          The first step is to set up your Terraform remote backend state using
+          S3 and DynamoDB, use
           <a
             className='text-blue-500 hover:underline'
             href='https://hackernoon.com/deploying-a-terraform-remote-state-backend-with-aws-s3-and-dynamodb'
@@ -271,16 +271,16 @@ export default function Blog1() {
             this
           </a>{' '}
           guide to get that done. You can do this through the AWS managment
-          console or do it using Terraform, in my case, I did it using
-          Terraform, but I have this code available only locally and in a
-          different directory. To provision the S3 bucket and the DynamoDB table
-          required for my main codebase &apos; remote state, I used the
-          Terraform local state as opposed to the remote backend. After
-          you&apos;ve created the remote backend resources, you&apos;ll need to
-          reference them in the remote backend you&apos;ll be setting up for
-          this project. For my project I am provisioning my components of my
-          infrastructure in region <code>us-east-1</code>, you can pick whatever
-          region is best suited to you, find more information about AWS regions{' '}
+          console or using Terraform, in my case, I did it using Terraform, but
+          I have this code available only locally and in a different directory.
+          To provision the S3 bucket and the DynamoDB table required for my main
+          codebase&apos; remote backend state, I used the Terraform local state
+          as opposed to the remote backend state. After you&apos;ve created the
+          remote backend state resources, you&apos;ll need to reference them in
+          the remote backend state you&apos;ll be setting up for this project.
+          For my project, I&apos;m provisioning components of my infrastructure
+          in the region <code>us-east-1</code>, you can pick whatever region is
+          best suited to you, find more information about AWS regions{' '}
           <a
             className='text-blue-500 hover:underline'
             href='https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html'
@@ -295,7 +295,9 @@ export default function Blog1() {
             tool
           </a>{' '}
           you can use to gauge which region will result in the lowest latency
-          for the geographic origin of most of your users.
+          for the geographic request origin of most of your users. Let&apos;s
+          begin by setting up our <code>provider.tf</code> file, which will have
+          the remote backend state and provider configuration.
         </p>
         <p className='mb-2 md:mb-4'>
           {' '}
@@ -326,9 +328,9 @@ export default function Blog1() {
             Why use containers?{' '}
           </span>
           They provide a lightweight, portable, and consistent environment,
-          ensuring that applications can run uniformly across development,
-          testing, and production environments. This helps eliminate the “it
-          works on my machine” problem by encapsulating all dependencies, making
+          ensuring that apps can run uniformly across development, testing, and
+          production environments. This helps eliminate the “it works on my
+          machine” problem by encapsulating all dependencies, making
           environments identical across different stages of the software
           lifecycle, while also improving scalability and resource efficiency.
         </p>
@@ -339,7 +341,7 @@ export default function Blog1() {
           allows you to store, manage, and deploy Docker container images
           securely. With ECR, developers can push, pull, and manage container
           images, making it an essential service for working with AWS services
-          like Amazon ECS.
+          like ECS.
         </p>
         <CodeBlock
           filePath={'ecr.tf'}
@@ -349,8 +351,8 @@ export default function Blog1() {
         ></CodeBlock>
         <p className='my-2 md:my-4'>
           As you can see below, we have five distinct resources as part of our
-          VPC configuration below, below the code block we will dive into each
-          one of them and understand how they all work together.
+          VPC configuration below, below the code block, we will dive deep into
+          each one of them and understand how they all work together.
         </p>
         <CodeBlock
           filePath={'vpc.tf'}
@@ -363,15 +365,15 @@ export default function Blog1() {
           Now that we have our network configured correctly to maintain high
           availability for our app running ECS, we can proceed to build out our
           ALB (Application Load Balancer) with a SSL (Secure Sockets Layer)
-          certificate request from ACM (AWS Certificate Manager) to ensure that
-          our app serves traffic only over HTTPS, for secure transmissions
-          between client and server. However, in order to request the
-          certificate we need to own a domain first, and you can use Route 53 to
-          buy a domain of your choosing, I bought <code>tldrlw.com</code> (and I
-          did this throught the management console UI), upon which I was
-          provided with a Route 53 hosted zone. We will need this hosted zone
-          moving forward, so make sure you buy yourself a domain before
-          proceeding.
+          certificate request from ACM (AWS Certificate Manager), the
+          certificate ensures that our app serves traffic only over HTTPS, for
+          secure transmissions between client and server. However, in order to
+          request the certificate we need to own a domain first, and you can use
+          Route 53 to buy a domain of your choosing, I bought{' '}
+          <code>tldrlw.com</code> (and I did this throught the management
+          console), upon which I was provided with a Route 53 hosted zone. We
+          will need this hosted zone moving forward, so make sure you buy
+          yourself a domain before proceeding.
         </p>
         <p className='mb-2 md:mb-4'>
           {' '}
@@ -394,8 +396,8 @@ export default function Blog1() {
         <p className='my-2 md:mb-4'>
           Like the defintion above explains, we need to pull information about
           the hosted zone that was created when you registered your new domain
-          in Route 53, we will need to pass in the zone id when creating a Route
-          53 A record and also when create Route 53 records involved in our
+          in Route 53. We will need to pass in the zone id when creating a Route
+          53 A record, and also when creating Route 53 records involved in our
           process of requesting a certificate from ACM. Let&apos;s create the
           Route 53 and ACM resources and then understand how it all works.
         </p>
@@ -412,7 +414,7 @@ export default function Blog1() {
         <p className='mb-2 md:mb-4'>
           By now you would've noticed things like <code>var.APP_NAME</code> and{' '}
           <code>var.HOSTNAME</code>, these are Terraform variables we will need
-          to define in a <code>variables.tf</code> file, using variables ensure
+          to define in a <code>variables.tf</code> file. Using variables ensure
           consistency and maintainability when building infrastructure,
           furthermore, should you need to make any changes, you only need to do
           it in one place. Let&apos;s define our variables like how you see
@@ -460,12 +462,15 @@ export default function Blog1() {
         ></CodeBlock>
         <p className='my-2 md:mb-4'>
           As you can see above the CIDR range is set to <code>"0.0.0.0/0"</code>
-          , this is because we are building a public app, if your app will serve
-          traffic from a confined space like an office network, you can change
-          this value to your appropriate CIDR range. And now that the ALB is
-          created, we can move on to ECS, as mentioned above, we will rely on my
-          module to create the service, but the cluster itself will be managed
-          normally as a resource.
+          , this is because we are building a public app, if your app needs to
+          only serve traffic from a confined space like an office network, you
+          can change this value to your appropriate CIDR range.
+        </p>
+        <p className='mb-2 md:mb-4'>
+          And now that the ALB is created, we can move on to ECS. As was
+          mentioned above, we will rely on my module to create the service, but
+          the cluster itself will be managed normally as a resource in your
+          file.
         </p>
         <CodeBlock
           filePath={'ecs.tf'}
@@ -498,8 +503,8 @@ export default function Blog1() {
           in Terraform when one module reference relies on information upon the
           creation of resources from <span className='italic'>another</span>{' '}
           module reference. Having set up our ALB and ECS resources, let&apos;s
-          try and better understand what they do (quick refreshers) and how
-          they&apos;re connected.
+          try and better understand what they do (quick refreshers on some
+          things) and how they&apos;re connected.
         </p>
         <div className='my-4'>{albAndEcsExplanation()}</div>
       </section>
@@ -510,9 +515,9 @@ export default function Blog1() {
           have to validate our code, and we can do it by running
           <code>terraform validate</code>, and if the checks pass we can run{' '}
           <code>terraform plan</code>. Reading through everything that is
-          outputted here is imperative, as it will give you an understanding of
-          what you&apos;re about to provision into your AWS account. You could
-          also see errors here (also when you run{' '}
+          outputted here in the plan is imperative, as it will give you an
+          understanding of what you&apos;re about to provision into your AWS
+          account. You could also see errors here (also when you run{' '}
           <code>terraform validate</code>), and in such an event, you&apos;ll
           have to make changes to your code. If the plan stage looks good, you
           can run <code>terraform apply --auto-approve</code>, and voila, you
