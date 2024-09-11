@@ -64,7 +64,7 @@ export default function Blog1() {
           DynamoDB, use
           <a
             className='text-blue-500 hover:underline'
-            href='https://github.com/tldrlw/blog-tldrlw/tree/boilerplate-nextjs'
+            href='https://hackernoon.com/deploying-a-terraform-remote-state-backend-with-aws-s3-and-dynamodb'
           >
             {' '}
             this
