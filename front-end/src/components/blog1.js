@@ -275,12 +275,15 @@ export default function Blog1() {
           I have this code available only locally and in a different directory.
           To provision the S3 bucket and the DynamoDB table required for my main
           codebase&apos; remote backend state, I used the Terraform local state
-          as opposed to the remote backend state. After you&apos;ve created the
-          remote backend state resources, you&apos;ll need to reference them in
-          the remote backend state you&apos;ll be setting up for this project.
-          For my project, I&apos;m provisioning components of my infrastructure
-          in the region <code>us-east-1</code>, you can pick whatever region is
-          best suited to you, find more information about AWS regions{' '}
+          as opposed to the remote backend state.
+        </p>
+        <p className='mb-2 md:mb-4'>
+          After you&apos;ve created the remote backend state resources,
+          you&apos;ll need to reference them in the remote backend state
+          you&apos;ll be setting up for this project. For my project, I&apos;m
+          provisioning components of my infrastructure in the region{' '}
+          <code>us-east-1</code>, you can pick whatever region is best suited to
+          you, find more information about AWS regions{' '}
           <a
             className='text-blue-500 hover:underline'
             href='https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html'
@@ -551,6 +554,11 @@ export default function Blog1() {
           task definition will update with the newly provided image tag, and
           your app should be running after a couple of minutes, reachable at
           whatever you set for <code>aws_route53_record.main</code>.
+        </p>
+        <p className='mb-2 md:mb-4'>
+          In an upcoming blog post, I&apos;ll share how to use Github
+          Actions&apos; workflows to implement a CI/CD system, eliminating the
+          need for manual Docker image builds and Terraform executions.
         </p>
       </section>
     </main>

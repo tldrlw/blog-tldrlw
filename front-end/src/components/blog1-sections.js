@@ -1,7 +1,7 @@
 export const vpcExplanation = () => {
   return (
     <div className='container mx-auto my-2 bg-gray-100 p-4 shadow-sm'>
-      <h1 className='mb-2 text-customRed'>AWS VPC Configuration Overview</h1>
+      <h1 className='mb-2 text-customRed'>VPC Configuration Overview</h1>
 
       <p className='mb-4 text-gray-700'>
         This Terraform configuration above creates a highly available
@@ -18,8 +18,7 @@ export const vpcExplanation = () => {
           within it. DNS support and hostnames are enabled to ensure seamless
           communication between resources inside the VPC. A VPC provides full
           control over your networking, including subnets, routing, and traffic
-          management, making it essential when deploying applications on Amazon
-          ECS.
+          management, making it essential when deploying apps on Amazon ECS.
         </p>
         <p className='mt-2 text-gray-700'>
           In this case, the VPC allows containers running in ECS to securely
@@ -28,8 +27,8 @@ export const vpcExplanation = () => {
           reliability and performance. By configuring public and private
           subnets, the VPC ensures that your application has secure internet
           access when needed while maintaining high availability across AWS
-          availability zones. This integration of VPC with ECS enables scalable,
-          secure, and resilient containerized applications.
+          region AZs (Availability Zone). This integration of VPC with ECS
+          enables scalable, secure, and resilient containerized apps.
         </p>
       </div>
 
@@ -102,14 +101,14 @@ export const acmAndRoute53Explanation = () => {
   return (
     <div className='container mx-auto my-2 bg-gray-100 p-4 shadow-sm'>
       <h1 className='mb-2 text-customRed'>
-        AWS ACM & Route 53 Configuration Overview
+        ACM & Route 53 Configuration Overview
       </h1>
 
       <p className='mb-4 text-gray-700'>
-        This Terraform above configuration sets up an SSL certificate for a
+        This Terraform configuration above sets up an SSL certificate for a
         domain using ACM and integrates it with Route 53 for DNS validation.
         Below is a detailed breakdown of how each resource works together to
-        ensure secure communication for your web applications.
+        ensure secure communication for your app.
       </p>
 
       <div className='mb-4 border-l-4 border-customRed bg-white p-4 shadow-sm'>
@@ -117,8 +116,8 @@ export const acmAndRoute53Explanation = () => {
           What is AWS Route 53?
         </h2>
         <p className='text-gray-700'>
-          AWS's scalable and highly available Domain Name System (DNS) web
-          service. It is used to route users to your applications by translating
+          AWS&apos;s scalable and highly available Domain Name System (DNS) web
+          service. It is used to route users to your app by translating
           human-readable domain names (like <code>example.com</code>) into
           machine-readable IP addresses. Route 53 can also register domain
           names, manage DNS records, and monitor health checks, ensuring traffic
@@ -128,27 +127,28 @@ export const acmAndRoute53Explanation = () => {
 
       <div className='mb-4 border-l-4 border-customRed bg-white p-4 shadow-sm'>
         <h2 className='mb-1 font-semibold text-customRed'>
-          What is AWS ACM (AWS Certificate Manager)?
+          What is ACM (AWS Certificate Manager)?
         </h2>
         <p className='text-gray-700'>
           Service that lets you easily provision, manage, and deploy SSL/TLS
-          certificates. These certificates are used to secure network
-          communications and establish the identity of websites over the
-          internet. ACM handles the complexities of certificate management,
-          including renewal, allowing you to focus on running your applications
-          while ensuring they are secured with industry-standard encryption.
+          (Transport Layer Security) certificates. These certificates are used
+          to secure network communications and establish the identity of
+          websites over the internet. ACM handles the complexities of
+          certificate management, including renewal, allowing you to focus on
+          running your app while ensuring they are secured with
+          industry-standard encryption.
         </p>
       </div>
 
       <div className='mb-4 border-l-4 border-customRed bg-white p-4 shadow-sm'>
         <h2 className='mb-1 font-semibold text-customRed'>ACM Certificate</h2>
         <p className='text-gray-700'>
-          The AWS ACM (Certificate Manager) resource is used to request an SSL
-          certificate for the domain. In this configuration, a certificate is
-          requested for the domain defined by the <code>var.HOSTNAME</code>. The
-          validation method is set to "DNS", which means the domain's ownership
-          will be verified via DNS records. The <code>RSA_2048</code> algorithm
-          is used for the certificate's key, providing strong encryption.
+          ACM is used to request an SSL certificate for the domain. In this
+          configuration, a certificate is requested for the domain defined by
+          the <code>var.HOSTNAME</code>. The validation method is set to "DNS",
+          which means the domain&apos;s ownership will be verified via DNS
+          records. The <code>RSA_2048</code> algorithm is used for the
+          certificate&apos;s key, providing strong encryption.
         </p>
         <p className='mt-2 text-gray-700'>
           ACM automatically manages certificate renewals, ensuring continuous
@@ -165,10 +165,10 @@ export const acmAndRoute53Explanation = () => {
         <p className='text-gray-700'>
           This resource sets up DNS validation for the SSL certificate. For each
           domain validation option that ACM provides, a Route 53 record is
-          created. The <code>for_each</code> loop dynamically generates these
-          records based on ACM's domain validation options, including the name,
-          type, and value of the DNS record required to prove ownership of the
-          domain.
+          created. The Terraform <code>for_each</code> loop dynamically
+          generates these records based on ACM&apos;s domain validation options,
+          including the name, type, and value of the DNS record required to
+          prove ownership of the domain.
         </p>
         <p className='mt-2 text-gray-700'>
           These records are critical for enabling ACM to verify ownership of
@@ -185,10 +185,10 @@ export const acmAndRoute53Explanation = () => {
         </h2>
         <p className='text-gray-700'>
           After setting up the DNS records, this resource completes the
-          validation process by referencing the certificate's ARN and the fully
-          qualified domain names (FQDNs) of the Route 53 records. This step
-          ensures that the SSL certificate becomes active once AWS verifies the
-          domain ownership through the DNS validation records.
+          validation process by referencing the certificate&apos;s ARN and the
+          fully qualified domain names (FQDNs) of the Route 53 records. This
+          step ensures that the SSL certificate becomes active once AWS verifies
+          the domain ownership through the DNS validation records.
         </p>
         <p className='mt-2 text-gray-700'>
           Once validated, the certificate can be used to secure traffic to your
@@ -204,9 +204,9 @@ export const acmAndRoute53Explanation = () => {
         </h2>
         <p className='text-gray-700'>
           The final Route 53 record points the domain name (e.g.,{' '}
-          <code>blog.tldrlw.com</code>) to the application load balancer (ALB).
-          The <code>alias</code> block within the record defines an alias that
-          links the domain to the ALB's DNS name and zone ID. The{' '}
+          <code>blog.tldrlw.com</code> in my case) to the ALB. The{' '}
+          <code>alias</code> block within the record defines an alias that links
+          the domain to the ALB&apos;s DNS name and zone ID. The{' '}
           <code>evaluate_target_health</code> parameter ensures that the DNS
           will only resolve if the ALB is healthy, increasing reliability for
           end-users.
@@ -233,14 +233,14 @@ export const albAndEcsExplanation = () => {
   return (
     <div className='container mx-auto my-2 bg-gray-100 p-4 shadow-sm'>
       <h1 className='mb-2 text-customRed'>
-        AWS ALB & ECS Service Configuration Overview
+        ALB & ECS Service Configuration Overview
       </h1>
 
       <p className='mb-4 text-gray-700'>
         This Terraform configuration sets up an ALB and ECS Service to host and
-        scale containerized applications. Below is a detailed breakdown of how
-        each resource works together to ensure efficient traffic distribution
-        and container management for your web applications.
+        scale the containerized app. Below is a detailed breakdown of how each
+        resource works together to ensure efficient traffic distribution and
+        container management for your Next.js app.
       </p>
 
       <div className='mb-4 border-l-4 border-customRed bg-white p-4 shadow-sm'>
@@ -258,24 +258,20 @@ export const albAndEcsExplanation = () => {
       </div>
 
       <div className='mb-4 border-l-4 border-customRed bg-white p-4 shadow-sm'>
-        <h2 className='mb-1 font-semibold text-customRed'>
-          What is Amazon ECS?
-        </h2>
+        <h2 className='mb-1 font-semibold text-customRed'>What is ECS?</h2>
         <p className='text-gray-700'>
           ECS is a fully managed container orchestration service that allows you
-          to run and scale containerized applications easily. With ECS, you can
-          deploy containers on a cluster of EC2 instances or use AWS Fargate to
-          run containers without managing underlying infrastructure. ECS
-          integrates seamlessly with other AWS services like ALB and ECR,
-          enabling efficient scaling, secure networking, and management of
-          container-based workloads.
+          to run and scale containerized apps easily. With ECS, you can deploy
+          containers on a cluster of EC2 instances or use AWS Fargate (what
+          we&apos;re using) to run containers without managing underlying
+          infrastructure. ECS integrates seamlessly with other AWS services like
+          ALB and ECR, enabling efficient scaling, secure networking, and
+          management of container-based workloads.
         </p>
       </div>
 
       <div className='mb-4 border-l-4 border-customRed bg-white p-4 shadow-sm'>
-        <h2 className='mb-1 font-semibold text-customRed'>
-          Application Load Balancer Setup
-        </h2>
+        <h2 className='mb-1 font-semibold text-customRed'>ALB Setup</h2>
         <p className='text-gray-700'>
           In this configuration, the ALB is provisioned using a Terraform module
           that handles its setup. The ALB is created within the VPC specified by{' '}
@@ -298,11 +294,10 @@ export const albAndEcsExplanation = () => {
         <p className='text-gray-700'>
           An ECS cluster is the fundamental resource where your containers run.
           In this configuration, the cluster named <code>"main"</code> is
-          created, and all services and tasks will be deployed into it. ECS
-          clusters can run on EC2 instances or using AWS Fargate. Here, the ECS
-          service interacts with the ALB through the target group, enabling
-          efficient distribution of network traffic to the containerized
-          applications.
+          created, and all services and tasks will be deployed into it. Here,
+          the ECS service interacts with the ALB through the target group,
+          enabling efficient distribution of network traffic to the
+          containerized app.
         </p>
       </div>
 
@@ -311,26 +306,29 @@ export const albAndEcsExplanation = () => {
         <p className='text-gray-700'>
           The ECS service is responsible for managing the deployment and scaling
           of your containers in the ECS cluster. In this configuration, the
-          service pulls container images from an ECR (Elastic Container
-          Registry) repository, identified by the <code>ecr_repo_url</code>, and
-          deploys them using the image tag specified in{' '}
-          <code>var.IMAGE_TAG</code>.
+          service pulls container images from the ECR repository, identified by
+          the <code>ecr_repo_url</code>, and deploys them using the image tag
+          specified in <code>var.IMAGE_TAG</code>.
         </p>
         <p className='mt-2 text-gray-700'>
           The service launches containers that listen on port <code>3000</code>,
           and traffic is routed to these containers via the ALB. By specifying
           security group rules and subnet configurations, the service ensures
           that the containers are securely accessible, while remaining scalable
-          to meet demand. This ECS service dynamically adjusts the number of
-          running tasks based on the desired task count and traffic load.
+          to meet demand. This ECS service <span className='italic'>can</span>{' '}
+          dynamically adjust the number of running tasks based on the desired
+          task count and traffic load. For our purposes we have a static value
+          of "1" for <code>task_count</code>, but feel free to change this if
+          you&apos;d like, and monitor task deployments across AZs to guarantee
+          high availability.
         </p>
       </div>
 
       <p className='mt-4 text-gray-700'>
         By integrating the ALB with the ECS service, this setup ensures that
-        your containerized applications are securely deployed, automatically
-        load balanced, and scalable, while using Terraform to automate the
-        entire provisioning process.
+        your containerized app is securely deployed, automatically load
+        balanced, and scalable, while using Terraform to automate the entire
+        provisioning process.
       </p>
     </div>
   );
