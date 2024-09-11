@@ -16,14 +16,6 @@ output "TF_VAR_IMAGE_TAG" {
   value = var.IMAGE_TAG
 }
 
-variable "ENV" {
-  type = string
-}
-
-output "TF_VAR_ENV" {
-  value = var.ENV
-}
-
 variable "HOSTNAME" {
   type = string
   default = "blog.tldrlw.com"
