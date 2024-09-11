@@ -220,7 +220,7 @@ export const acmAndRoute53Explanation = () => {
       </div>
 
       <p className='mt-4 text-gray-700'>
-        This Terraform setup seamlessly integrates ACM and Route 53 to manage
+        This setup seamlessly integrates ACM and Route 53 to manage
         SSL certificates and DNS records, ensuring your domain is validated and
         secured for HTTPS traffic. Automating the entire process reduces errors
         and ensures continuous availability and security.
