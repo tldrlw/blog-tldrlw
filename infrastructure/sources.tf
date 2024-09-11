@@ -1,7 +1,7 @@
 # The attribute `${data.aws_caller_identity.current.account_id}` will be current account number
 data "aws_caller_identity" "current" {}
 
-data "aws_route53_zone" "tldrlw_com" {
+data "aws_route53_zone" "main" {
   name         = "tldrlw.com"
   private_zone = false
 }
