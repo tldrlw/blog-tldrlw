@@ -1,5 +1,5 @@
 import CodeBlock from '@/components/codeBlock';
-import { vpcExplanation } from './blog1-sections';
+import { vpcExplanation, acmAndRoute53Explanation } from './blog1-sections';
 
 const providerTf = `
 terraform {
@@ -76,6 +76,63 @@ resource "aws_route_table_association" "public" {
 }
 `;
 
+const sourcesTf = `
+data "aws_route53_zone" "main" {
+  # change the name to whatever domain you bought from Route 53
+  name         = "<your domain goes here, e.g., helloworld.com>"
+  private_zone = false
+}
+
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+`;
+
+const route53acmTf = `
+resource "aws_acm_certificate" "main" {
+  domain_name       = var.HOSTNAME
+  validation_method = "DNS"
+  key_algorithm     = "RSA_2048"
+  tags = {
+    Name = var.APP_NAME
+  }
+}
+
+resource "aws_route53_record" "main_cert_validation" {
+  for_each = {
+    for dvo in aws_acm_certificate.main.domain_validation_options : dvo.domain_name => {
+      name  = dvo.resource_record_name
+      type  = dvo.resource_record_type
+      value = dvo.resource_record_value
+    }
+  }
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.value]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = data.aws_route53_zone.tldrlw_com.zone_id
+}
+
+resource "aws_acm_certificate_validation" "main" {
+  certificate_arn         = aws_acm_certificate.main.arn
+  validation_record_fqdns = [for record in aws_route53_record.main_cert_validation : record.fqdn]
+}
+
+resource "aws_route53_record" "main" {
+  zone_id = data.aws_route53_zone.main.zone_id
+  # set the name to a subdomain if you want one, otherwise set it to "" to use your root domain, for my use case I wanted a subdomain
+  name    = "blog"
+  # will show up in management console Route 53 as 'blog.tldrlw.com'
+  type = "A"
+  alias {
+    name                   = module.main.alb_dns_name
+    zone_id                = module.main.alb_zone_id
+    evaluate_target_health = true
+  }
+}
+`;
+
 export default function Blog1() {
   return (
     <main>
@@ -88,7 +145,7 @@ export default function Blog1() {
       <section className='mb-2 text-sm text-gray-700 md:mb-4 md:text-base'>
         <p className='mb-2 text-gray-700 md:mb-4'>
           This guide will take a very barebones next.js app and deploy it to ECS
-          (elastic container service), and I&apos;m assuming you have a basic
+          (Elastic Container Service), and I&apos;m assuming you have a basic
           understanding of Terraform and how it works, creating an AWS IAM
           (identity access management) User with a Secret Key and Secret Access
           Key to run Terraform{' '}
@@ -187,16 +244,50 @@ export default function Blog1() {
         <p className='mb-2 md:mb-4'>
           Now that we have our network configured correctly to maintain high
           availability for our app running ECS, we can proceed to build out our
-          ALB (application load balancer) with a certificate request from ACM
-          (amazon certificate manager) to ensure that our app serves traffic
-          only over HTTPS, for secure transmissions between client and server.
-          However, in order to request the certificate we need to own a domain
-          first, and you can use Route 53 to buy a domain of your choosing, I
-          bought <code>tldrlw.com</code> (and I did this throught the management
-          console UI), upon which I was provided with a Route 53 hosted zone. We
-          will need this hosted zone moving forward, so make sure you buy
-          yourself a domain before proceeding.
+          ALB (application load balancer) with a SSL (Secure Sockets Layer)
+          certificate request from ACM (AWS Certificate Manager) to ensure that
+          our app serves traffic only over HTTPS, for secure transmissions
+          between client and server. However, in order to request the
+          certificate we need to own a domain first, and you can use Route 53 to
+          buy a domain of your choosing, I bought <code>tldrlw.com</code> (and I
+          did this throught the management console UI), upon which I was
+          provided with a Route 53 hosted zone. We will need this hosted zone
+          moving forward, so make sure you buy yourself a domain before
+          proceeding.
         </p>
+        <p className='mb-2 text-gray-700 md:mb-4'>
+          {' '}
+          <span className='!important text-customOrangeLogo'>Definition: </span>
+          A Terraform data source is a mechanism that allows Terraform to query
+          external data or resources that are managed outside of the current
+          Terraform configuration. Instead of creating resources, data sources
+          are used to retrieve information about existing infrastructure—such as
+          AWS AMIs, VPCs, or subnets—so that this data can be used in the
+          Terraform configuration. This allows you to incorporate existing
+          resources into your infrastructure without duplicating them or
+          managing them directly with Terraform.
+        </p>
+        <CodeBlock
+          filePath={'sources.tf'}
+          filePathStyle={'text-customRed'}
+          fileExtension={'hcl'}
+          codeBlock={sourcesTf}
+        ></CodeBlock>
+        <p className='my-2 md:mb-4'>
+          Like the defintion above explains, we need to pull information about
+          the hosted zone that was created when you registered your new domain
+          in Route 53, we will need to pass in the zone id when creating a Route
+          53 A record and also when create Route 53 records involved in our
+          process of requesting a certificate from ACM. Let&apos;s create the
+          Route 53 and ACM resources and then understand how it all works.
+        </p>
+        <CodeBlock
+          filePath={'route53-acm.tf'}
+          filePathStyle={'text-customRed'}
+          fileExtension={'hcl'}
+          codeBlock={route53acmTf}
+        ></CodeBlock>
+        <div className='my-4'>{acmAndRoute53Explanation()}</div>
       </section>
 
       <section className='mb-6 text-sm text-gray-700 md:mb-4 md:text-base'>
