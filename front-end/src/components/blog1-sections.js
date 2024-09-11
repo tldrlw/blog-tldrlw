@@ -117,7 +117,7 @@ export const acmAndRoute53Explanation = () => {
           What is AWS Route 53?
         </h2>
         <p className='text-gray-700'>
-          AWS's scalable and highly available **Domain Name System (DNS)** web
+          AWS's scalable and highly available Domain Name System (DNS) web
           service. It is used to route users to your applications by translating
           human-readable domain names (like <code>example.com</code>) into
           machine-readable IP addresses. Route 53 can also register domain
@@ -220,10 +220,117 @@ export const acmAndRoute53Explanation = () => {
       </div>
 
       <p className='mt-4 text-gray-700'>
-        This setup seamlessly integrates ACM and Route 53 to manage
-        SSL certificates and DNS records, ensuring your domain is validated and
+        This setup seamlessly integrates ACM and Route 53 to manage SSL
+        certificates and DNS records, ensuring your domain is validated and
         secured for HTTPS traffic. Automating the entire process reduces errors
         and ensures continuous availability and security.
+      </p>
+    </div>
+  );
+};
+
+export const albAndEcsExplanation = () => {
+  return (
+    <div className='container mx-auto my-2 bg-gray-100 p-4 shadow-sm'>
+      <h1 className='mb-2 text-customRed'>
+        AWS ALB & ECS Service Configuration Overview
+      </h1>
+
+      <p className='mb-4 text-gray-700'>
+        This Terraform configuration sets up an ALB and ECS Service to host and
+        scale containerized applications. Below is a detailed breakdown of how
+        each resource works together to ensure efficient traffic distribution
+        and container management for your web applications.
+      </p>
+
+      <div className='mb-4 border-l-4 border-customRed bg-white p-4 shadow-sm'>
+        <h2 className='mb-1 font-semibold text-customRed'>What is an ALB?</h2>
+        <p className='text-gray-700'>
+          An ALB is a key component in AWS that distributes incoming traffic
+          across multiple targets, such as EC2 instances or containers, in
+          different availability zones. It operates at the application layer
+          (Layer 7 of the OSI model) and supports advanced routing features,
+          making it ideal for microservices architectures and container-based
+          deployments. ALBs can automatically distribute traffic to healthy
+          targets, ensuring high availability and better performance for your
+          application.
+        </p>
+      </div>
+
+      <div className='mb-4 border-l-4 border-customRed bg-white p-4 shadow-sm'>
+        <h2 className='mb-1 font-semibold text-customRed'>
+          What is Amazon ECS?
+        </h2>
+        <p className='text-gray-700'>
+          ECS is a fully managed container orchestration service that allows you
+          to run and scale containerized applications easily. With ECS, you can
+          deploy containers on a cluster of EC2 instances or use AWS Fargate to
+          run containers without managing underlying infrastructure. ECS
+          integrates seamlessly with other AWS services like ALB and ECR,
+          enabling efficient scaling, secure networking, and management of
+          container-based workloads.
+        </p>
+      </div>
+
+      <div className='mb-4 border-l-4 border-customRed bg-white p-4 shadow-sm'>
+        <h2 className='mb-1 font-semibold text-customRed'>
+          Application Load Balancer Setup
+        </h2>
+        <p className='text-gray-700'>
+          In this configuration, the ALB is provisioned using a Terraform module
+          that handles its setup. The ALB is created within the VPC specified by{' '}
+          <code>vpc_id</code>, and it is associated with the public subnets (
+          <code>subnet_ids</code>) to make the application accessible from the
+          internet. The ALB listens for traffic on a specific port, and the SSL
+          certificate (managed by ACM) ensures that traffic is encrypted via
+          HTTPS.
+        </p>
+        <p className='mt-2 text-gray-700'>
+          Additionally, a target group is created that registers ECS tasks
+          running in the cluster as targets. This target group allows the ALB to
+          distribute incoming requests across the tasks, ensuring load balancing
+          and high availability.
+        </p>
+      </div>
+
+      <div className='mb-4 border-l-4 border-customRed bg-white p-4 shadow-sm'>
+        <h2 className='mb-1 font-semibold text-customRed'>ECS Cluster Setup</h2>
+        <p className='text-gray-700'>
+          An ECS cluster is the fundamental resource where your containers run.
+          In this configuration, the cluster named <code>"main"</code> is
+          created, and all services and tasks will be deployed into it. ECS
+          clusters can run on EC2 instances or using AWS Fargate. Here, the ECS
+          service interacts with the ALB through the target group, enabling
+          efficient distribution of network traffic to the containerized
+          applications.
+        </p>
+      </div>
+
+      <div className='mb-4 border-l-4 border-customRed bg-white p-4 shadow-sm'>
+        <h2 className='mb-1 font-semibold text-customRed'>ECS Service</h2>
+        <p className='text-gray-700'>
+          The ECS service is responsible for managing the deployment and scaling
+          of your containers in the ECS cluster. In this configuration, the
+          service pulls container images from an ECR (Elastic Container
+          Registry) repository, identified by the <code>ecr_repo_url</code>, and
+          deploys them using the image tag specified in{' '}
+          <code>var.IMAGE_TAG</code>.
+        </p>
+        <p className='mt-2 text-gray-700'>
+          The service launches containers that listen on port <code>3000</code>,
+          and traffic is routed to these containers via the ALB. By specifying
+          security group rules and subnet configurations, the service ensures
+          that the containers are securely accessible, while remaining scalable
+          to meet demand. This ECS service dynamically adjusts the number of
+          running tasks based on the desired task count and traffic load.
+        </p>
+      </div>
+
+      <p className='mt-4 text-gray-700'>
+        By integrating the ALB with the ECS service, this setup ensures that
+        your containerized applications are securely deployed, automatically
+        load balanced, and scalable, while using Terraform to automate the
+        entire provisioning process.
       </p>
     </div>
   );
