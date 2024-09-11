@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <main>
       <div>
-        <div className='bg-customBlueLogo mx-auto px-4 pt-4 md:p-8'>
+        <div className='mx-auto bg-customBlueLogo px-4 pt-4 md:p-8'>
           <Image
             src='/images/png/logo-no-background.png' // Replace with your actual image URL
             alt='tldrlw logo'

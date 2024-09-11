@@ -1,7 +1,9 @@
+import Image from 'next/image';
+
 export default function About() {
   return (
     <main>
-      <h1 className='text-customOrangeLogo mb-2 font-bold md:mb-4 md:text-lg'>
+      <h1 className='mb-2 font-bold text-customOrangeLogo md:mb-4 md:text-lg'>
         Too Long Didn&apos;t Read{' '}
         <span className='!important italic'>Listen Watch</span>
       </h1>
@@ -56,6 +58,19 @@ export default function About() {
           in 2026 filled me with excitement. It&apos;s moments like these that
           rekindle my deep connection to the sport.
         </p>
+        <div className='my-3 md:mb-4 md:flex md:flex-col md:items-center'>
+          <Image
+            src='/images/adrian-newey-joins-amr.webp' // Replace with your actual image URL
+            alt='tldrlw logo'
+            className='h-auto'
+            width={1000}
+            height={1000}
+          />
+          <p className='text-xs text-gray-700 md:text-sm'>
+            Image credit:
+            https://www.astonmartinf1.com/en-GB/news/gallery/in-pictures-adrian-newey-joins-aston-martin-aramco
+          </p>
+        </div>
         <p className='mb-2 text-gray-700 md:mb-4'>
           <span className='text-customOrangeLogo'>However,</span> as much as I
           love following Formula 1, I&apos;ve become increasingly frustrated
@@ -171,9 +186,13 @@ export default function About() {
           <span className='text-customOrangeLogo'>Beyond</span> racing content,
           I also want to share the tools and technologies that I&apos;ve been
           developing as part of this ongoing project. I&apos;m using
-          industry-leading technologies like AWS for cloud infrastructure,
-          Terraform for infrastructure as code, Docker for containerization,
-          CI/CD pipelines to automate software delivery, and GitHub Actions to realize these pipelines as workflows that improve development and collaboration.
+          industry-leading technologies like AWS for building apps and
+          automation in the cloud, Terraform for provisioning infrastructure
+          with just code, Docker for containerization, CI/CD (continuous
+          integration/continuous delivery) pipelines to automate software
+          delivery, and GitHub Actions to realize these pipelines as
+          &apos;workflows&apos; that improve development and collaboration
+          velocity.
         </p>
         <p className='mb-2 text-gray-700'>
           <span className='text-customOrangeLogo'>These</span> tools enable me

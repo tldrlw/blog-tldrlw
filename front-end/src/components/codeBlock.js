@@ -17,8 +17,8 @@ export default function codeBlock({
   codeBlock,
 }) {
   return (
-    <div className={filePathStyle}>
-      <p>{filePath}</p>
+    <div>
+      <p className={filePathStyle}>{filePath}</p>
       <SyntaxHighlighter
         language={fileExtension}
         style={base16AteliersulphurpoolLight}
