@@ -173,8 +173,7 @@ export default function About() {
           developing as part of this ongoing project. I&apos;m using
           industry-leading technologies like AWS for cloud infrastructure,
           Terraform for infrastructure as code, Docker for containerization,
-          CI/CD pipelines to automate software delivery, and GitHub Actions to
-          streamline continuous integration and deployment workflows.
+          CI/CD pipelines to automate software delivery, and GitHub Actions to realize these pipelines as workflows that improve development and collaboration.
         </p>
         <p className='mb-2 text-gray-700'>
           <span className='text-customOrangeLogo'>These</span> tools enable me
