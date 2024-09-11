@@ -157,6 +157,9 @@ output "TF_VAR_APP_NAME" {
 
 variable "IMAGE_TAG" {
   type    = string
+  # after running the bash script that will build and push your
+  # Docker image to ECR, you can update the default value here
+  # and run terraform plan and terraform apply --auto-approve
   default = "latest"
 }
 
@@ -237,7 +240,7 @@ export default function Blog1() {
           build a template to deploy Next.js apps efficiently and reliably.
           Having worked out a good system I want to share this with others who
           might be looking for a similar solution. This guide will take a very
-          barebones next.js app and deploy it to ECS (Elastic Container
+          barebones Next.js app and deploy it to ECS (Elastic Container
           Service), and I&apos;m assuming you have a basic understanding of
           Terraform and how it works, creating an AWS IAM (identity access
           management) User with a Secret Key and Secret Access Key to run
@@ -412,7 +415,8 @@ export default function Blog1() {
           to define in a <code>variables.tf</code> file, using variables ensure
           consistency and maintainability when building infrastructure,
           furthermore, should you need to make any changes, you only need to do
-          it in one place. Let's define our variables like how you see below.
+          it in one place. Let&apos;s define our variables like how you see
+          below.
         </p>
         <CodeBlock
           filePath={'variables.tf'}
@@ -428,10 +432,11 @@ export default function Blog1() {
           specific task, such as provisioning infrastructure components. It
           helps simplify infrastructure management by allowing you to define
           common patterns and reuse them across different configurations, making
-          your code more maintainable and scalable. Since I'm building multiple
-          Next.js apps, I've tried to modularize as much Terraform configuration
-          as possible, to keep app-specific repositories "DRY" (Don't Repeat
-          Yourself). The modules we'll be using can be found{' '}
+          your code more maintainable and scalable. Since I&apos;m building
+          multiple Next.js apps, I&apos;ve tried to modularize as much Terraform
+          configuration as possible, to keep app-specific repositories "DRY"
+          (Don&apos;t Repeat Yourself). The modules we&apos;ll be using can be
+          found{' '}
           <a
             className='text-blue-500 hover:underline'
             href='https://github.com/tldrlw/terraform-modules'
@@ -442,7 +447,7 @@ export default function Blog1() {
         </p>
         <p className='mb-2 md:mb-4'>
           For the purposes of education, my preference in relying on modules is
-          not ideal, since you won't be able to see the underlying
+          not ideal, since you won&apos;t be able to see the underlying
           infrastructure resources that go into provisioning an ECS service +
           task and the ALB. I will have another blog post soon explaining the
           components of these two modules and their synergies.
@@ -468,13 +473,19 @@ export default function Blog1() {
           fileExtension={'hcl'}
           codeBlock={ecsTf}
         ></CodeBlock>
-        <p className='mb-2 md:mb-4'>
+        <p className='my-2 md:mb-4'>
           {' '}
           <span className='!important text-customOrangeLogo'>Important!: </span>
-          If you&apos;re running the provided bash script to build and push your
-          Next.js Docker image to ECR on an{' '}
+          If you&apos;re running the provided bash{' '}
+          <a
+            className='text-blue-500 hover:underline'
+            href='https://github.com/tldrlw/blog-tldrlw/blob/boilerplate-nextjs/front-end/docker-push.sh'
+          >
+            script
+          </a>{' '}
+          to build and push your Next.js Docker image to ECR on an{' '}
           <span class='italic'>M-series Mac</span>, you will need to set{' '}
-          <code>linux_arm64 = true</code>
+          <code>linux_arm64 = true</code>.
         </p>
         <p className='my-2 md:mb-4'>
           Note the lines{' '}
@@ -488,13 +499,54 @@ export default function Blog1() {
           creation of resources from <span className='italic'>another</span>{' '}
           module reference. Having set up our ALB and ECS resources, let&apos;s
           try and better understand what they do (quick refreshers) and how
-          they're connected.
+          they&apos;re connected.
         </p>
         <div className='my-4'>{albAndEcsExplanation()}</div>
       </section>
 
       <section className='mb-6 text-sm text-gray-700 md:mb-4 md:text-base'>
-        <p className='mb-2 italic text-gray-700'>To be continued...</p>
+        <p className='mb-2 md:mb-4'>
+          At this point we are <span className='italic'>almost</span> done, we
+          have to validate our code, and we can do it by running
+          <code>terraform validate</code>, and if the checks pass we can run{' '}
+          <code>terraform plan</code>. Reading through everything that is
+          outputted here is imperative, as it will give you an understanding of
+          what you&apos;re about to provision into your AWS account. You could
+          also see errors here (also when you run{' '}
+          <code>terraform validate</code>), and in such an event, you&apos;ll
+          have to make changes to your code. If the plan stage looks good, you
+          can run <code>terraform apply --auto-approve</code>, and voila, you
+          have deployed your new ECS infrastructure.
+        </p>
+        <p className='mb-2 md:mb-4'>
+          You can take some time and look through the different resources you
+          created in the management console, but pay close attention to what you
+          see in ECS, you should see your{' '}
+          <span className='italic'>ECS task deployment failing</span>. Why is
+          that? It&apos;s because our variable <code>IMAGE_TAG</code> has a
+          default value of "latest", but we have yet to build and push our
+          Next.js app to ECR. In the ECS logs you&apos;ll see error messages
+          saying that the container with tag "latest" can&apos;t be found, which
+          makes sense because nothing exists in ECR at this point.
+        </p>
+        <p className='mb-2 md:mb-4'>
+          As mentioned prior, you can clone{' '}
+          <a
+            className='text-blue-500 hover:underline'
+            href='https://github.com/tldrlw/blog-tldrlw/blob/boilerplate-nextjs/front-end/docker-push.sh'
+          >
+            this
+          </a>{' '}
+          repo, and run the <code>docker-push.sh</code> from the{' '}
+          <code>front-end</code> directory, passing in your ECR repo name and
+          the region (e.g., us-east-1). Once the Docker image is built and
+          pushed to ECR, you&apos;ll get a six digit image tag. In the{' '}
+          <code>variables.tf</code> file, change <code>IMAGE_TAG</code> to have
+          the default value of the image tag, then run Terraform again. Your ECS
+          task definition will update with the newly provided image tag, and
+          your app should be running after a couple of minutes, reachable at
+          whatever you set for <code>aws_route53_record.main</code>.
+        </p>
       </section>
     </main>
   );
