@@ -27,7 +27,7 @@ export default function codeBlock({
           padding: '10px', // Adjust padding if needed
         }}
         codeTagProps={{
-          style: { fontSize: '12px' }, // This directly changes the code font size
+          style: { fontSize: '10px' }, // This directly changes the code font size
         }}
       >
         {codeBlock}
