@@ -1,5 +1,5 @@
 resource "aws_route53_record" "main" {
-  zone_id = data.aws_route53_zone.tldrlw_com.zone_id
+  zone_id = data.aws_route53_zone.main.zone_id
   name    = "blog"
   # will show up in management console Route 53 as 'blog.tldrlw.com'
   type = "A"
