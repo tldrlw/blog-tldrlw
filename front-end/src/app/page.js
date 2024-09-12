@@ -1,17 +1,9 @@
-// import Image from "next/image";
+import Blog1 from '@/components/blog1';
 
 export default function Home() {
-  const buildTime =
-    process.env.NEXT_PUBLIC_BUILD_TIME || "build time placeholder";
-  const image =
-    process.env.NEXT_PUBLIC_IMAGE || "image path and tag placeholder";
-
   return (
     <main>
-      <p>blog.tldrlw.com</p>
-      <p>
-        {buildTime} / {image}
-      </p>
+      <Blog1></Blog1>
     </main>
   );
 }
