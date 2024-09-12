@@ -183,7 +183,7 @@ output "TF_VAR_HOSTNAME" {
 `;
 
 const albTf = `
-module "main" {
+module "alb" {
   source               = "git::https://github.com/tldrlw/terraform-modules.git//app-load-balancer?ref=dev"
   vpc_id               = aws_vpc.main.id
   subnet_ids           = aws_subnet.public[*].id
