@@ -6,7 +6,7 @@ run-name: ${{ github.event_name }}
 on:
   push:
     branches:
-      - dev
+      - main
     paths:
       - infrastructure/**
   workflow_dispatch:
@@ -46,21 +46,21 @@ jobs:
         working-directory: ./infrastructure
         run: terraform validate
 
-      - name: plan dev
-        id: plan-dev
-        if: ${{ github.ref == 'refs/heads/dev' }}
+      - name: plan dvm
+        id: plan-dvm
+        if: ${{ github.ref == 'refs/heads/main' }}
         env:
-          TF_VAR_ENV: dev
+          TF_VAR_ENV: dvm
           TF_VAR_IMAGE_TAG: ${{ github.event.inputs.image_tag }}
         working-directory: ./infrastructure
         run: terraform plan
         continue-on-error: false
 
-      - name: apply dev
-        id: apply-dev
-        if: ${{ github.ref == 'refs/heads/dev' }}
+      - name: apply dvm
+        id: apply-dvm
+        if: ${{ github.ref == 'refs/heads/main' }}
         env:
-          TF_VAR_ENV: dev
+          TF_VAR_ENV: dvm
           TF_VAR_IMAGE_TAG: ${{ github.event.inputs.image_tag }}
         working-directory: ./infrastructure
         run: terraform apply -auto-approve

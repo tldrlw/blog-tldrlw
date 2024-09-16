@@ -25,7 +25,7 @@ output "TF_VAR_ENV" {
 }
 
 variable "HOSTNAME" {
-  type = string
+  type    = string
   default = "blog.tldrlw.com"
 }
 

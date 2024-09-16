@@ -304,7 +304,9 @@ export default function Blog1() {
         </p>
         <p className='mb-2 md:mb-4'>
           {' '}
-          <span className='!important text-customOrangeLogo'>Definition: </span>
+          <span className='!important font-bold text-customOrangeLogo'>
+            Definition:{' '}
+          </span>
           A Terraform provider is a plugin that enables Terraform to interact
           with APIs of cloud platforms and other services, allowing Terraform to
           manage and provision resources on those platforms (e.g., AWS, Azure,
@@ -327,7 +329,7 @@ export default function Blog1() {
         </p>
         <p className='mb-2 md:mb-4'>
           {' '}
-          <span className='!important text-customOrangeLogo'>
+          <span className='!important font-bold text-customOrangeLogo'>
             Why use containers?{' '}
           </span>
           They provide a lightweight, portable, and consistent environment,
@@ -339,7 +341,9 @@ export default function Blog1() {
         </p>
         <p className='mb-2 md:mb-4'>
           {' '}
-          <span className='!important text-customOrangeLogo'>Definition: </span>
+          <span className='!important font-bold text-customOrangeLogo'>
+            Definition:{' '}
+          </span>
           ECR is a fully managed Docker container registry service, and it
           allows you to store, manage, and deploy Docker container images
           securely. With ECR, developers can push, pull, and manage container
@@ -380,7 +384,9 @@ export default function Blog1() {
         </p>
         <p className='mb-2 md:mb-4'>
           {' '}
-          <span className='!important text-customOrangeLogo'>Definition: </span>
+          <span className='!important font-bold text-customOrangeLogo'>
+            Definition:{' '}
+          </span>
           A Terraform data source is a mechanism that allows Terraform to query
           external data or resources that are managed outside of the current
           Terraform configuration. Instead of creating resources, data sources
@@ -483,7 +489,9 @@ export default function Blog1() {
         ></CodeBlock>
         <p className='my-2 md:mb-4'>
           {' '}
-          <span className='!important text-customOrangeLogo'>Important!: </span>
+          <span className='!important font-bold text-customOrangeLogo'>
+            Important!:{' '}
+          </span>
           If you&apos;re running the provided bash{' '}
           <a
             className='text-blue-500 hover:underline'
@@ -492,7 +500,7 @@ export default function Blog1() {
             script
           </a>{' '}
           to build and push your Next.js Docker image to ECR on an{' '}
-          <span class='italic'>M-series Mac</span>, you will need to set{' '}
+          <span className='italic'>M-series Mac</span>, you will need to set{' '}
           <code>linux_arm64 = true</code>.
         </p>
         <p className='my-2 md:mb-4'>
