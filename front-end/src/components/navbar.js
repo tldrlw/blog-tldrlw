@@ -57,12 +57,18 @@ export default function Navbar() {
           >
             About
           </Link>
-          {/* <Link
-            href="/blogs"
-            className={`hover:underline ${isActive("/blogs") ? "underline" : ""}`}
+          <Link
+            href='/blogs'
+            className={`hover:underline ${isActive('/blogs') ? 'underline' : ''}`}
           >
             Blogs
-          </Link> */}
+          </Link>
+          <Link
+            href='/consulting'
+            className={`hover:underline ${isActive('/consulting') ? 'underline' : ''}`}
+          >
+            Consulting
+          </Link>
         </div>
       </div>
 
@@ -90,16 +96,26 @@ export default function Navbar() {
                 About
               </Link>
             </li>
-            {/* <li>
+            <li>
               <Link
-                href="/blogs"
+                href='/blogs'
                 className={`mr-7 block hover:underline ${
-                  isActive("/blogs") ? "underline" : ""
+                  isActive('/blogs') ? 'underline' : ''
                 }`}
               >
                 Blogs
               </Link>
-            </li> */}
+            </li>
+            <li>
+              <Link
+                href='/consulting'
+                className={`mr-7 block hover:underline ${
+                  isActive('/consulting') ? 'underline' : ''
+                }`}
+              >
+                Consulting
+              </Link>
+            </li>
           </ul>
         </div>
       )}
