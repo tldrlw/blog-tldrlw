@@ -3,7 +3,7 @@ import {
   vpcExplanation,
   acmAndRoute53Explanation,
   albAndEcsExplanation,
-} from './blog1-sections';
+} from '@/app/lib/overviews/blog1';
 
 const providerTf = `
 terraform {
@@ -218,8 +218,7 @@ module "ecs_service" {
   host_port                   = 3000
   # linux_arm64          = true
   # ^ set to true if using the following scripts to build and push images to ECR on M-series Macs:
-  # https://github.com/tldrlw/radiotodaydhaka/blob/main/docker-push.sh
-  # https://github.com/tldrlw/gc-reservations/blob/main/front-end/docker-push.sh
+  # https://github.com/tldrlw/blog-tldrlw/blob/boilerplate-nextjs/front-end/docker-push.sh
 }
 `;
 
