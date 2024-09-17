@@ -1,9 +1,13 @@
 resource "aws_ecs_cluster" "main" {
   name = "main"
+  # will also serve:
+  # aws-nextjs-crud-app
+  # monza-tldrlw
+
 }
 
 module "ecs_service" {
-  source                      = "git::https://github.com/tldrlw/terraform-modules.git//ecs-service?ref=dev"
+  source                      = "git::https://github.com/tldrlw/terraform-modules.git//ecs-service"
   app_name                    = var.APP_NAME
   ecr_repo_url                = aws_ecr_repository.main.repository_url
   image_tag                   = var.IMAGE_TAG
