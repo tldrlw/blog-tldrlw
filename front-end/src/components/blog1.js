@@ -234,16 +234,29 @@ export default function Blog1() {
 
       <section className='mb-2 text-sm text-gray-700 md:mb-4 md:text-base'>
         <p className='mb-2 md:mb-4'>
-          In addition to multiple *.tldrlw.com apps, I consistently work on
-          other projects for friends, family and partnerships, therefore, I
-          needed to build a template to deploy Next.js apps efficiently and
-          reliably. Having worked out a good system I want to share this with
-          others who might be looking for a similar solution. This guide will
-          take a very barebones Next.js app and deploy it to ECS (Elastic
-          Container Service). I&apos;m assuming you have a basic understanding
-          of Terraform and how it works, creating an AWS IAM (Identity Access
-          Management) User with a Secret Key and Secret Access Key to run
-          Terraform{' '}
+          Having a reliable and tested system for running apps on cloud servers
+          in our fast-paced development environment is essential. As businesses
+          and personal projects grow, the need for scalable, flexible solutions
+          becomes more critical. Dockerized containers offer an ideal way to
+          package and deploy applications consistently, regardless of the
+          underlying infrastructure. By leveraging cloud platforms like AWS and
+          utilizing container orchestration tools such as ECS (Elastic Container
+          Service), you can ensure your applications are both highly available
+          and able to scale up or down based on demand. Whether you&apos;re
+          managing multiple apps or building solutions for fun, establishing a
+          proven system for deploying Next.js apps in the cloud is key to
+          maintaining efficiency and reliability.
+        </p>
+        <p className='mb-2 md:mb-4'>
+          Alongside multiple *.tldrlw.com apps, I consistently work on other
+          projects for friends, family and partnerships, therefore, I needed to
+          build a template to deploy Next.js apps efficiently and reliably.
+          Having worked out a good system I want to share this with others who
+          might be looking for a similar solution. This guide will take a very
+          barebones Next.js app and deploy it to ECS. I&apos;m assuming you have
+          a basic understanding of Terraform and how it works, creating an AWS
+          IAM (Identity Access Management) User with a Secret Key and Secret
+          Access Key to run Terraform{' '}
           <a
             className='text-blue-500 hover:underline'
             href='https://docs.aws.amazon.com/cli/v1/userguide/cli-configure-files.html'
