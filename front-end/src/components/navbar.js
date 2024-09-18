@@ -126,7 +126,7 @@ export default function Navbar() {
             <li>
               <a
                 target='_blank'
-                className='text-customRed hover:underline'
+                className='mr-7 text-customRed hover:underline'
                 href='https://www.linkedin.com/in/refayathaque/'
               >
                 LinkedIn

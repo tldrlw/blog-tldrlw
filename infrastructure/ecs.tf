@@ -12,7 +12,7 @@ module "ecs_service" {
   ecr_repo_url                = aws_ecr_repository.main.repository_url
   image_tag                   = var.IMAGE_TAG
   ecs_cluster_id              = aws_ecs_cluster.main.id
-  task_count                  = 1
+  task_count                  = 2
   alb_target_group_arn        = module.main.alb_target_group_arn
   source_security_group_id    = module.main.alb_security_group_id
   security_group_egress_cidrs = ["0.0.0.0/0"]
@@ -20,10 +20,11 @@ module "ecs_service" {
   vpc_id                      = aws_vpc.main.id
   container_port              = 3000
   host_port                   = 3000
-  # linux_arm64          = true
-  # ^ set to true if using the following scripts to build and push images to ECR on M-series Macs:
-  # https://github.com/tldrlw/radiotodaydhaka/blob/main/docker-push.sh
-  # https://github.com/tldrlw/gc-reservations/blob/main/front-end/docker-push.sh
+  cpu                         = "512"
+  memory                      = "1024"
+  # ^ doubled both on 9/18/24
+  # linux_arm64                 = true
+  # ^ set to true if building and pushing images to ECR on M-series Macs:
 }
 # rm -rf .terraform/modules > terraform init
 # run ^ after pushing up changes to modules when testing locally
