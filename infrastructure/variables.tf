@@ -8,8 +8,8 @@ output "TF_VAR_APP_NAME" {
 }
 
 variable "IMAGE_TAG" {
-  type    = string
-  default = "8a5002d"
+  type = string
+  # not having a default will force me to provide the latest image tag when running terraform locally
 }
 
 output "TF_VAR_IMAGE_TAG" {
@@ -17,7 +17,9 @@ output "TF_VAR_IMAGE_TAG" {
 }
 
 variable "ENV" {
-  type = string
+  type    = string
+  default = "dvm"
+  # not being used anywhere as of 9/18/24
 }
 
 output "TF_VAR_ENV" {
