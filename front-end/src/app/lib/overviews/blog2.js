@@ -59,7 +59,7 @@ export const dynamoDBExplanation = () => {
     {
       component: 'What is DynamoDB?',
       textBlocks: [
-        'Amazon DynamoDB is a fully managed NoSQL database service that provides fast and flexible database performance for applications that require low-latency, high throughput access to data. DynamoDB is designed for use cases such as real-time analytics, mobile applications, gaming, IoT, and e-commerce.',
+        'Amazon DynamoDB is a fully managed NoSQL database service that provides fast and flexible database performance for applications that require low-latency and high throughput access to data. DynamoDB is designed for use cases such as real-time analytics, mobile applications, gaming, IoT and e-commerce.',
         'As a fully managed service, DynamoDB automatically scales the storage and throughput capacity to meet the demands of your application. This makes it ideal for workloads that experience unpredictable traffic patterns, as it ensures high availability and low operational overhead.',
       ],
     },
@@ -73,7 +73,7 @@ export const dynamoDBExplanation = () => {
     {
       component: 'Primary Keys and Sort Keys',
       textBlocks: [
-        'DynamoDB uses **Primary Keys** to uniquely identify items within a table. A primary key can be either a simple primary key (Partition Key) or a composite primary key (Partition Key and Sort Key):',
+        'DynamoDB uses <i>Primary Keys</i> to uniquely identify items within a table. A primary key can be either a simple primary key (Partition Key) or a composite primary key (Partition Key and Sort Key):',
         '<strong>Partition Key</strong>: The partition key is a single attribute that uniquely identifies an item in a table. DynamoDB uses the partition key’s value to determine how data is distributed across partitions in storage.',
         '<strong>Composite Key (Partition Key and Sort Key)</strong>: In tables with a composite primary key, each item is uniquely identified by the combination of both a partition key and a sort key. The partition key is used to group related items, and the sort key is used to order those items within the partition. This is useful for queries that need to retrieve items based on the same partition key but sort them by another attribute.',
       ],
