@@ -1,6 +1,11 @@
 import Image from 'next/image';
+import { resizeImage } from '@/app/lib/utilities';
 
-export default function Consulting() {
+export default async function Consulting() {
+  // Fetch the image dimensions for both images on the server side
+  const rtdDimensions = await resizeImage('radiotodaydhaka-mobile.png', 0.4); // Call the function directly in the server component
+  const gcResDimensions = await resizeImage('gc-res-mobile.png', 0.4);
+
   return (
     <main className='mb-6'>
       <h1 className='mb-2 underline md:mb-4 md:text-lg'>Consulting</h1>
@@ -35,8 +40,8 @@ export default function Consulting() {
               src='/images/radiotodaydhaka-mobile.png' // Replace with your actual image URL
               alt='radiotodaydhaka screenshot'
               className='h-auto w-auto'
-              width={1000}
-              height={1000}
+              width={rtdDimensions.width}
+              height={rtdDimensions.height}
             />
             <a
               href='https://radiotodaydhaka.com'
@@ -51,8 +56,8 @@ export default function Consulting() {
               src='/images/gc-res-mobile.png' // Replace with your actual image URL
               alt='gc-res screenshot'
               className='h-auto w-auto'
-              width={1000}
-              height={1000}
+              width={gcResDimensions.width}
+              height={gcResDimensions.height}
             />
             <a
               href='https://gc-res.com'
