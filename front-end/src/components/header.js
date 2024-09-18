@@ -1,6 +1,9 @@
 import Image from 'next/image';
+import { resizeImage } from '@/app/lib/utilities';
 
-export default function Header() {
+export default async function Header() {
+  const logoDimensions = await resizeImage('png/logo-no-background.png', 0.5);
+
   return (
     <main>
       <div>
@@ -9,8 +12,9 @@ export default function Header() {
             src='/images/png/logo-no-background.png' // Replace with your actual image URL
             alt='tldrlw logo'
             className='h-auto w-1/2 md:w-1/4'
-            width={500}
-            height={500}
+            priority
+            width={logoDimensions.width}
+            height={logoDimensions.height}
           />
         </div>
       </div>

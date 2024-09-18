@@ -1,6 +1,12 @@
 import Image from 'next/image';
+import { resizeImage } from '@/app/lib/utilities';
 
-export default function About() {
+export default async function About() {
+  const neweyToAMRDimensions = await resizeImage(
+    'adrian-newey-joins-amr.webp',
+    0.3,
+  );
+
   return (
     <main className='mb-6'>
       <h1 className='mb-2 font-bold text-customOrangeLogo md:mb-4 md:text-lg'>
@@ -63,9 +69,9 @@ export default function About() {
           <Image
             src='/images/adrian-newey-joins-amr.webp' // Replace with your actual image URL
             alt='tldrlw logo'
-            className='h-auto'
-            width={1000}
-            height={1000}
+            className='h-auto w-auto'
+            width={neweyToAMRDimensions.width}
+            height={neweyToAMRDimensions.height}
           />
           <p className='text-xs text-gray-700 md:text-sm'>
             Image credit:

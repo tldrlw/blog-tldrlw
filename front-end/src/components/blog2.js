@@ -1,5 +1,5 @@
 import Image from 'next/image';
-
+import { resizeImage } from '@/app/lib/utilities';
 import CodeBlock from '@/components/codeBlock';
 import {
   lambdaExplanation,
@@ -139,7 +139,16 @@ output "lambda_delete_arn" {
 }
 `;
 
-export default function Blog2() {
+export default async function Blog2() {
+  // Fetch the image dimensions for both images on the server side
+  const getDimensions = await resizeImage('aws-nextjs-crud-app/get.png', 0.4); // Call the function directly in the server component
+  const putDimensions = await resizeImage('aws-nextjs-crud-app/put.png', 0.4);
+  const deleteDimensions = await resizeImage(
+    'aws-nextjs-crud-app/delete.png',
+    0.4,
+  );
+  const postDimensions = await resizeImage('aws-nextjs-crud-app/post.png', 0.4);
+
   return (
     <main>
       <h1 className='mb-2 underline md:mb-4 md:text-lg'>
@@ -417,8 +426,8 @@ export default function Blog2() {
               src='/images/aws-nextjs-crud-app/get.png' // Replace with your actual image URL
               alt='radiotodaydhaka screenshot'
               className='h-auto w-auto'
-              width={1000}
-              height={1000}
+              width={getDimensions.width}
+              height={getDimensions.height}
             />
             <p className='text-xs font-bold text-customOrangeLogo md:text-sm'>
               GET
@@ -429,8 +438,8 @@ export default function Blog2() {
               src='/images/aws-nextjs-crud-app/post.png' // Replace with your actual image URL
               alt='gc-res screenshot'
               className='h-auto w-auto'
-              width={1000}
-              height={1000}
+              width={postDimensions.width}
+              height={postDimensions.height}
             />
             <p className='text-xs font-bold text-customOrangeLogo md:text-sm'>
               POST
@@ -443,8 +452,8 @@ export default function Blog2() {
               src='/images/aws-nextjs-crud-app/delete.png' // Replace with your actual image URL
               alt='gc-res screenshot'
               className='h-auto w-auto'
-              width={1000}
-              height={1000}
+              width={deleteDimensions.width}
+              height={deleteDimensions.height}
             />
             <p className='mb-3 text-xs font-bold text-customOrangeLogo md:mb-0 md:text-sm'>
               DELETE
@@ -455,8 +464,8 @@ export default function Blog2() {
               src='/images/aws-nextjs-crud-app/put.png' // Replace with your actual image URL
               alt='radiotodaydhaka screenshot'
               className='h-auto w-auto'
-              width={1000}
-              height={1000}
+              width={putDimensions.width}
+              height={putDimensions.height}
             />
             <p className='text-xs font-bold text-customOrangeLogo md:text-sm'>
               PUT
