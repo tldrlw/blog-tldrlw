@@ -1,9 +1,9 @@
-import Blog1 from '@/components/blog1';
+import Blog2 from '@/components/blog2';
 
 export default function Home() {
   return (
     <main>
-      <Blog1></Blog1>
+      <Blog2></Blog2>
     </main>
   );
 }
