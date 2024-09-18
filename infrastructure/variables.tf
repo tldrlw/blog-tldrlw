@@ -9,7 +9,7 @@ output "TF_VAR_APP_NAME" {
 
 variable "IMAGE_TAG" {
   type    = string
-  default = "latest"
+  default = "8a5002d"
 }
 
 output "TF_VAR_IMAGE_TAG" {
