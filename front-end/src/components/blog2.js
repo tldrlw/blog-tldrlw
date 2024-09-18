@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import CodeBlock from '@/components/codeBlock';
 import {
   lambdaExplanation,
@@ -24,8 +26,10 @@ const variablesTf = `
 variable "APP_NAME" {
   type    = string
   default = "aws-next-js-crud-app"
-  # ^ feel free to change this to whatever you want to name this app
-  # this value will be used to name Lambda functions and the DynamoDB table
+  # ^ feel free to change this to whatever you want your 
+  # app's name to be, keep in mind that this value will 
+  # be used to name Lambda functions, the DynamoDB table 
+  # and ECS service
 }
 
 variable "REGION" {
@@ -139,7 +143,7 @@ export default function Blog2() {
   return (
     <main>
       <h1 className='mb-2 underline md:mb-4 md:text-lg'>
-        AWS Next.js CRUD app
+        AWS Next.js CRUD app (infrastructure)
       </h1>
       <p className='mb-2 text-sm font-light md:mb-4 md:text-base'>
         Wednesday, September 18, 2024
@@ -154,12 +158,12 @@ export default function Blog2() {
           these capabilities from the ground up is essential for anyone looking
           to develop tailored applications. In this post, we&apos;ll walk
           through the steps to create a simple CRUD (Create, Read, Update,
-          Delete) app using Next.js on AWS. This hands-on guide will help you
-          establish a practical foundation for building custom software that
-          empowers organizations to collect, manage, and utilize user data
-          effectively. Whether you&apos;re new to development or seeking to
-          enhance your skills, this project will give you the tools to get
-          started on building data-driven applications.
+          Delete) app using AWS and (in a subsquest post) Next.js. This hands-on
+          guide will help you establish a practical foundation for building
+          custom software that empowers organizations to collect, manage, and
+          utilize user data effectively. Whether you&apos;re new to development
+          or seeking to enhance your skills, this project will give you the
+          tools to get started on building data-driven applications.
         </p>
         <p className='mb-2 md:mb-4'>
           In this project, we&apos;ll be building and deploying a Next.js app
@@ -216,16 +220,28 @@ export default function Blog2() {
         </p>
         <div className='my-4'>{lambdaExplanation()}</div>
         <p className='mb-2 md:mb-4'>
-          Now that we understand what Lambda is, let&apos;s dive in. We will be
-          creating four separate Lambda functions, each for the operations we'll
-          be executing from our front-end app. Our operations will follow the
-          RESTful API methodology, and if you&apos;re unfamiliar with RESTful, a
-          definition is provided below:
+          For this demonstration, we will work with the <code>NONE</code>{' '}
+          authentication option, but if you want to explore using{' '}
+          <code>AWS_IAM</code> instead,{' '}
+          <a
+            target='_blank'
+            className='text-blue-500 hover:underline'
+            href='https://www.linkedin.com/in/refayathaque/'
+          >
+            contact me
+          </a>{' '}
+          and I can assist. Moving on, now that we understand what Lambda is,
+          let&apos;s dive in. We will be creating four separate Lambda
+          functions, each for the operations we'll be executing from our
+          front-end app. Our operations will follow the RESTful API methodology,
+          and if you&apos;re unfamiliar with RESTful, a definition is provided
+          below:
         </p>
         <ul className='mb-2 list-inside text-gray-700 md:mb-4 md:list-disc'>
           <li>
             GET - <span className='italic'>fetch</span> data from DynamoDB -{' '}
             <a
+              target='_blank'
               className='text-blue-500 hover:underline'
               href='https://github.com/tldrlw/aws-nextjs-crud-app/blob/dev/infrastructure/lambda/app-get.mjs'
             >
@@ -233,9 +249,9 @@ export default function Blog2() {
             </a>
           </li>
           <li>
-            POST - <span className='italic'>write new</span> new items to
-            DynamoDB -{' '}
+            POST - <span className='italic'>write new</span> items to DynamoDB -{' '}
             <a
+              target='_blank'
               className='text-blue-500 hover:underline'
               href='https://github.com/tldrlw/aws-nextjs-crud-app/blob/dev/infrastructure/lambda/app-post.mjs'
             >
@@ -243,9 +259,10 @@ export default function Blog2() {
             </a>
           </li>
           <li>
-            PUT - <span className='italic'>update existing</span> existing items
-            in DynamoDB -{' '}
+            PUT - <span className='italic'>update existing</span> items in
+            DynamoDB -{' '}
             <a
+              target='_blank'
               className='text-blue-500 hover:underline'
               href='https://github.com/tldrlw/aws-nextjs-crud-app/blob/dev/infrastructure/lambda/app-put.mjs'
             >
@@ -253,9 +270,10 @@ export default function Blog2() {
             </a>
           </li>
           <li>
-            DELETE - <span className='italic'>delete existing</span> existing
-            items from DynamoDB -{' '}
+            DELETE - <span className='italic'>delete existing</span> items from
+            DynamoDB -{' '}
             <a
+              target='_blank'
               className='text-blue-500 hover:underline'
               href='https://github.com/tldrlw/aws-nextjs-crud-app/blob/dev/infrastructure/lambda/app-delete.mjs'
             >
@@ -292,7 +310,7 @@ export default function Blog2() {
           Before writing Terraform code for our Lambda functions, we need to
           prepare our configuration for the DynamoDB table the functions will
           execute operations against. Let&apos;s also understand what DynamoDB
-          is it&apos;s features.
+          is and it&apos;s features.
         </p>
         <div className='my-4'>{dynamoDBExplanation()}</div>
         <CodeBlock
@@ -314,11 +332,11 @@ export default function Blog2() {
           codeBlock={variablesTf}
         ></CodeBlock>
         <p className='my-2 md:my-4'>
-          Now we can start to build out our Lambda functions, as mentioned
+          Now we can start to build out our Lambda functions, and as mentioned
           before, we will be using the Lambda module I personally manage, I use
-          this module to statisfy a myriad of different needs, e.g., setting up
-          Lambda to work as API Gateway integrations with Cognito
-          authentication. Having said that, for{' '}
+          this module to statisfy a myriad of different needs across all my
+          different apps, e.g., setting up Lambda to work as API Gateway
+          integrations with Cognito authentication. Having said that, for{' '}
           <span className='italic'>this</span> project we won't be using API
           Gateway or any sort of authentication. These Lambda functions will be
           exposed publically, hence <code>function_url_public = true</code> in
@@ -333,9 +351,10 @@ export default function Blog2() {
         ></CodeBlock>
         <p className='my-2 md:my-4'>
           After provisioning our Terraform configuration thus far, we can test
-          out these Lambda functions using their published function URLs, so
-          let&apos;s set up an outputs.tf file that will log the URLs after the
-          Lambda functions are created in our Terraform apply logs.
+          out these Lambda functions using their published function URL
+          endpoints, so let&apos;s set up an <code>outputs.tf</code> file that
+          will log the endpoints in the Terraform apply logs after the Lambda
+          functions are created.
         </p>
         <CodeBlock
           filePath={'outputs.tf'}
@@ -345,17 +364,23 @@ export default function Blog2() {
         ></CodeBlock>
         <p className='my-2 md:my-4'>
           At this point, you can run the following Terraform commands from your
-          local to provision all our resources thus far to AWS. Despite still
-          having the front-end infrastructure to set up, we can deploy the
-          Lambda functions and test out their functionality using Postman, check
-          out this{' '}
+          local to provision all our resources to AWS. Despite still having the
+          front-end infrastructure to set up, we can deploy the Lambda functions
+          and test out their functionality using Postman, check out this{' '}
           <a
             className='text-blue-500 hover:underline'
             href='https://learning.postman.com/docs/getting-started/installation/installation-and-updates/'
           >
             guide
           </a>{' '}
-          on installing Postman.
+          on installing Postman, and this{' '}
+          <a
+            className='text-blue-500 hover:underline'
+            href='https://learning.postman.com/docs/sending-requests/create-requests/request-basics/'
+          >
+            guide
+          </a>{' '}
+          on how to make HTTP requests using endpoints.
         </p>
         <ul className='mb-2 list-inside text-gray-700 md:mb-4 md:list-disc'>
           <li>
@@ -368,10 +393,104 @@ export default function Blog2() {
             <code>terraform apply --auto-approve</code>
           </li>
         </ul>
+        <p className='mb-2 md:mb-4'>
+          Assuming your Terraform run went through at this point, the outputs
+          should clearly delineate the endpoints corresponding to your four
+          Lambda functions. Using these, you can test out the functionality of
+          your new back-end APIs, see the screenshots below to understand what
+          request parameters to add for the POST, PUT and DELETE calls
+          you&apos;ll be making. While it&apos;s not safe for me to reveal{' '}
+          <span className='italic'>my endpoints</span>, I will be destroying
+          these Lambda functions, in order to preclude malicious actors from
+          taking advantage of this vulnerability and inundating my DynamoDB
+          table with items, I suggest you do the same after you&apos;ve
+          completed this exercise. Running a simple{' '}
+          <code>terraform destroy</code> should take care of that.
+        </p>
       </section>
 
       <section className='mb-6 text-sm text-gray-700 md:mb-4 md:text-base'>
-        <p className='mb-2 italic md:mb-4'>To be continued...</p>
+        {/* <p className='mb-2 italic md:mb-4'>To be continued...</p> */}
+        <div className='my-3 md:mb-4 md:flex md:flex-row md:items-start md:justify-center md:gap-x-4'>
+          <div className='mb-4 flex flex-col items-center md:mb-0'>
+            <Image
+              src='/images/aws-nextjs-crud-app/get.png' // Replace with your actual image URL
+              alt='radiotodaydhaka screenshot'
+              className='h-auto w-auto'
+              width={1000}
+              height={1000}
+            />
+            <p className='text-xs font-bold text-customOrangeLogo md:text-sm'>
+              GET
+            </p>
+          </div>
+          <div className='flex flex-col items-center'>
+            <Image
+              src='/images/aws-nextjs-crud-app/post.png' // Replace with your actual image URL
+              alt='gc-res screenshot'
+              className='h-auto w-auto'
+              width={1000}
+              height={1000}
+            />
+            <p className='text-xs font-bold text-customOrangeLogo md:text-sm'>
+              POST
+            </p>
+          </div>
+        </div>
+        <div className='my-3 md:mb-4 md:flex md:flex-row md:items-start md:justify-center md:gap-x-4'>
+          <div className='flex flex-col items-center'>
+            <Image
+              src='/images/aws-nextjs-crud-app/delete.png' // Replace with your actual image URL
+              alt='gc-res screenshot'
+              className='h-auto w-auto'
+              width={1000}
+              height={1000}
+            />
+            <p className='mb-3 text-xs font-bold text-customOrangeLogo md:mb-0 md:text-sm'>
+              DELETE
+            </p>
+          </div>
+          <div className='mb-4 flex flex-col items-center md:mb-0'>
+            <Image
+              src='/images/aws-nextjs-crud-app/put.png' // Replace with your actual image URL
+              alt='radiotodaydhaka screenshot'
+              className='h-auto w-auto'
+              width={1000}
+              height={1000}
+            />
+            <p className='text-xs font-bold text-customOrangeLogo md:text-sm'>
+              PUT
+            </p>
+          </div>
+        </div>
+        <p className='mb-2 md:mb-4'>
+          When making DELETE or PUT calls, you can run the GET call and look at
+          all the messages you&apos;ve previously added to the table with the
+          POST command, find the unique identifier for whatever you want to get
+          rid of, or update, and include that as the <code>messageId</code> in
+          the request&apos;s JSON body. For PUT calls, you&apos;ll also need to
+          include a key-value pair with the key being <code>newMessage</code>.
+          The Lambda functions&apos; source code is configured to only accept
+          these specific keys (<code>messageId</code> and{' '}
+          <code>newMessage</code>), so be mindful of that. If you&apos;d like,
+          you can modify the source code to be able to take in other parameters
+          in the request body, but for the purposes of this demonstration, I
+          decided to keep it simple and work with "messages".
+        </p>
+        <p className='mb-2 md:mb-4'>
+          In part{' '}
+          <a
+            href='https://blog.tldrlw.com/blogs/3'
+            className='text-blue-500 hover:underline'
+            target='_blank'
+          >
+            two
+          </a>{' '}
+          of this series, we&apos;ll build out the Next.js front-end, where
+          these APIs we just created can be used. It will be a simple form that
+          allows users to see, delete, update existing messages and add new
+          messages.
+        </p>
       </section>
     </main>
   );

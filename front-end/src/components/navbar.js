@@ -69,6 +69,13 @@ export default function Navbar() {
           >
             Consulting
           </Link>
+          <a
+            target='_blank'
+            className='text-customRed hover:underline'
+            href='https://www.linkedin.com/in/refayathaque/'
+          >
+            LinkedIn
+          </a>
         </div>
       </div>
 
@@ -115,6 +122,15 @@ export default function Navbar() {
               >
                 Consulting
               </Link>
+            </li>
+            <li>
+              <a
+                target='_blank'
+                className='text-customRed hover:underline'
+                href='https://www.linkedin.com/in/refayathaque/'
+              >
+                LinkedIn
+              </a>
             </li>
           </ul>
         </div>

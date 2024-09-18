@@ -3,7 +3,8 @@ import Link from 'next/link';
 export default function Blogs() {
   const blogs = [
     { title: 'Deploying a public Next.js app to AWS ECS', slug: 'blogs/1' },
-    { title: 'AWS Next.js CRUD app', slug: 'blogs/2' },
+    { title: 'AWS Next.js CRUD app (infrastructure)', slug: 'blogs/2' },
+    { title: 'AWS Next.js CRUD app (front-end)', slug: 'blogs/3' },
   ];
 
   return (

@@ -1,5 +1,6 @@
 import Blog1 from '@/components/blog1';
 import Blog2 from '@/components/blog2';
+import Blog3 from '@/components/blog3';
 import NotFound from '@/components/notFound'; // Fallback component
 
 const SlugPage = async ({ params }) => {
@@ -13,6 +14,7 @@ const SlugPage = async ({ params }) => {
   const componentsMap = {
     1: Blog1,
     2: Blog2,
+    3: Blog3,
     // Add more slug-to-component mappings as needed
   };
 
