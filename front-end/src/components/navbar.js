@@ -76,6 +76,13 @@ export default function Navbar() {
           >
             LinkedIn
           </a>
+          <a
+            target='_blank'
+            className='text-customRed hover:underline'
+            href='https://github.com/tldrlw'
+          >
+            Github
+          </a>
         </div>
       </div>
 
@@ -130,6 +137,15 @@ export default function Navbar() {
                 href='https://www.linkedin.com/in/refayathaque/'
               >
                 LinkedIn
+              </a>
+            </li>
+            <li>
+              <a
+                target='_blank'
+                className='mr-7 text-customRed hover:underline'
+                href='https://github.com/tldrlw'
+              >
+                Github
               </a>
             </li>
           </ul>
