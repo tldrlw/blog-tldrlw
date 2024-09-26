@@ -154,8 +154,11 @@ export default async function Blog2() {
       <h1 className='mb-2 underline md:mb-4 md:text-lg'>
         AWS Next.js CRUD app (infrastructure)
       </h1>
-      <p className='mb-2 text-sm font-light md:mb-4 md:text-base'>
+      <p className='text-sm font-light md:text-base'>
         Wednesday, September 18, 2024
+      </p>
+      <p className='mb-2 text-xs font-light italic md:mb-4 md:text-sm'>
+        Updated: Thursday, September 26, 2024
       </p>
 
       <section className='mb-2 text-sm text-gray-700 md:mb-4 md:text-base'>
@@ -358,6 +361,45 @@ export default async function Blog2() {
           fileExtension={'hcl'}
           codeBlock={lambdaTf}
         ></CodeBlock>
+        <p className='my-2 md:my-4'>
+          {' '}
+          <span className='!important font-bold text-customOrangeLogo'>
+            Security:{' '}
+          </span>
+          In our Lambda configurations, we&apos;re adhering to AWS&apos;s
+          <span className='font-bold'> principle of least privilege</span> by
+          assigning only the necessary permissions for each function&apos;s
+          specific tasks. For instance, <code>lambda_get</code> has read-only
+          permissions (<code>dynamodb:Scan, dynamodb:DescribeTable</code>),
+          while <code>lambda_post</code>
+          is limited to write permissions (<code>dynamodb:BatchWriteItem</code>
+          ), ensuring each Lambda can only perform its required operations. This
+          approach avoids over-permissioning and ensures that no unnecessary
+          actions, such as wildcard permissions, are granted. Additionally, by
+          referencing the specific DynamoDB table ARN (
+          <code>aws_dynamodb_table.messages.arn</code>), we further restrict
+          access to the intended table, preventing unauthorized access to other
+          resources.
+        </p>
+        <p>
+          To enhance security, continue to review and audit these permissions
+          regularly, ensuring that no Lambda has broader access than needed.
+          It&apos;s also important to ensure that each function&apos;s
+          permissions are explicitly defined and modular, as I&apos;ve done with
+          <code>dydb_table_permissions</code> in the Lambda module
+          instantiation, ensuring future flexibility. This strategy keeps our
+          functions secure, maintains control over access, and adheres to best
+          practices in AWS IAM management. You can read more about the principle
+          of least privilege{' '}
+          <a
+            className='text-blue-500 hover:underline'
+            href='https://community.aws/content/2dsQs3aTnwV3LKeUDFkXNSndHjp/understanding-the-principle-of-least-privilege-in-aws?lang=en'
+            target='_blank'
+          >
+            here
+          </a>
+          .
+        </p>
         <p className='my-2 md:my-4'>
           After provisioning our Terraform configuration thus far, we can test
           out these Lambda functions using their published function URL

@@ -3,7 +3,6 @@ resource "aws_ecs_cluster" "main" {
   # will also serve:
   # aws-nextjs-crud-app
   # monza-tldrlw
-
 }
 
 module "ecs_service" {
@@ -12,7 +11,7 @@ module "ecs_service" {
   ecr_repo_url                = aws_ecr_repository.main.repository_url
   image_tag                   = var.IMAGE_TAG
   ecs_cluster_id              = aws_ecs_cluster.main.id
-  task_count                  = 2
+  task_count                  = 1
   alb_target_group_arn        = module.main.alb_target_group_arn
   source_security_group_id    = module.main.alb_security_group_id
   security_group_egress_cidrs = ["0.0.0.0/0"]
