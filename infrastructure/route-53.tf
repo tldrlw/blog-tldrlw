@@ -1,4 +1,4 @@
-resource "aws_route53_record" "root_domain" {
+resource "aws_route53_record" "www_blog" {
   zone_id = data.aws_route53_zone.tldrlw_com.zone_id
   name    = "www.blog"
   # will show up in management console Route 53 as 'www.blog.tldrlw.com'
