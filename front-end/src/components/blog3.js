@@ -1,7 +1,7 @@
 import CodeBlock from '@/components/codeBlock';
 
 const title = 'AWS Next.js CRUD app (front-end)';
-const date = 'Sunday, September 22, 2024';
+const date = 'Friday, September 27, 2024';
 
 export default function Blog3() {
   return (
