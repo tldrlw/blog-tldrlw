@@ -1,6 +1,8 @@
 import CodeBlock from '@/components/codeBlock';
 import Link from 'next/link';
 import { frameworkExplanation } from '@/app/lib/overviews/blog3';
+import { resizeImage } from '@/app/lib/utilities';
+import Image from 'next/image';
 
 const appPage = `
 import ListMessages from "@/components/ListMessages";
@@ -273,10 +275,15 @@ export default async function putMessage(formData) {
 }
 `;
 
-const title = 'AWS Next.js CRUD app (front-end)';
-const date = 'Saturday, September 28, 2024';
+export default async function Blog3() {
+  const title = 'AWS Next.js CRUD app (front-end)';
+  const date = 'Friday, September 27, 2024';
 
-export default function Blog3() {
+  const finishedProductDimensions = await resizeImage(
+    'aws-nextjs-crud-app/finished-product.png',
+    0.4,
+  );
+
   return (
     <main>
       <h1 className='mb-2 underline md:mb-4 md:text-lg'>{title}</h1>
@@ -349,8 +356,8 @@ export default function Blog3() {
           action completes. Since the "ListMessages" component is set up to make
           an API call to one of our Lambda functions to fetch all messages in
           the DynamoDB table, <code>Suspense</code> is useful to display
-          something else (e.g., like in our case, "Loading messages") while we
-          wait on that API call to complete. Speaking of the "ListMessages"
+          something else (e.g., in our case, "Loading messages") while we wait
+          on that API call to complete. Speaking of the "ListMessages"
           component, let&apos;s take a closer look at that.
         </p>
         <CodeBlock
@@ -373,19 +380,19 @@ export default function Blog3() {
           provide all messages in the DynamoDB table, while the other will be to
           the Lambda function that deletes specific messages from the table.
           Server actions are asynchronous functions that are executed on the
-          server. They can be called in server and client components to handle
-          form submissions and data mutations. We will go into these server
-          actions in the subsequent section, but these server actions will need
-          to be accessible in this component. We could have defined the
-          functions in the component itself, but it&apos;s cleaner to separate
-          them out into separate files under the <code>services</code>{' '}
+          server. They can be called in both server and client components to
+          handle form submissions and data mutations. We will go into these
+          server actions in the subsequent section, but these server actions
+          will need to be accessible in this component. We could have defined
+          the functions in the component itself, but it&apos;s cleaner to
+          separate them out into separate files under the <code>services</code>{' '}
           directory.
         </p>
         <p className='mb-2 md:mb-4'>
           Next, inside the component function itself, we call one of the
           above-mentioned services, "getMessages", and it will make the API call
-          to AWS and return an object in specific format. So to sift through the
-          object returned, we can use{' '}
+          to AWS and return an object in a specific format. So to sift through
+          the object returned, we can use{' '}
           <a href='ES6 destructuring' className='text-blue-500 hover:underline'>
             ES6 destructuring
           </a>{' '}
@@ -405,7 +412,7 @@ export default function Blog3() {
           order.
         </p>
         <p className='mb-2 md:mb-4'>
-          Now let's focus on the remaining bit, everything inside the{' '}
+          Now let's focus on the remaining part, everything inside the{' '}
           <code>return</code> statement. But prior to that, let&apos;s
           understand what JSX is, because that is what renders HTML code but
           inside of a JavaScript function, JSX is what is encapsulated inside
@@ -424,8 +431,8 @@ export default function Blog3() {
           human-readable formatted timestamp. Each message also includes a form
           with a “Delete” button. When the form is submitted, it calls a Next.js
           server action (deleteMessage) to delete the respective message from
-          the backend, utilizing Next.js’s built-in mechanism for server actions
-          via form submissions.
+          the backend, utilizing Next.js&apos;s built-in mechanism for server
+          actions via form submissions.
         </p>
       </section>
 
@@ -448,10 +455,10 @@ export default function Blog3() {
           codeBlock={newMessageComponent}
         ></CodeBlock>
         <p className='my-2 md:my-4'>
-          Now having understood what the components are doing, let&apos;s
-          understand the code in our server actions, and these are all defined
-          in the <code>services</code> directory. We&apos;ll start with
-          "getMessages" and then proceed to "putMessage".
+          Having understood what the components are doing, let&apos;s understand
+          the code in our server actions, and these are all defined in the{' '}
+          <code>services</code> directory. We&apos;ll start with "getMessages"
+          and then proceed to "putMessage".
         </p>
         <CodeBlock
           filePath={'front-end/src/services/getMessages.js'}
@@ -462,9 +469,9 @@ export default function Blog3() {
         <p className='my-2 md:my-4'>
           The getMessages function is a server action in Next.js, indicated by
           the "use server" directive, which ensures that the function runs
-          exclusively on the server-side, keeping sensitive operations secure
-          and out of the client’s reach. This function fetches data from our
-          Lambda function and includes custom options for caching. The{' '}
+          exclusively on the server side, keeping sensitive operations secure
+          and out of the client&apos;s reach. This function fetches data from
+          our Lambda function and includes custom options for caching. The{' '}
           <code>&#123; cache: "no-store" &#125;</code> setting disables Next.js
           default caching, meaning that each time the function is called, it
           makes a fresh request to the API, bypassing any previously cached
@@ -483,8 +490,8 @@ export default function Blog3() {
           rather than stale information. This tagging will ensure that any
           updates to messages{' '}
           <span className='italic'>
-            (also addition and deletion of new messages, since this logic is in
-            the "postMessage" and "deleteMessage" server actions as well)
+            (including addition and deletion of new messages, since this logic
+            is in the "postMessage" and "deleteMessage" server actions as well)
           </span>{' '}
           triggers the "getMessages" server action to update the list of
           messages in our "ListMessages" component. This combination of
@@ -500,8 +507,8 @@ export default function Blog3() {
           codeBlock={putMessageServerAction}
         ></CodeBlock>
         <p className='my-2 md:my-4'>
-          The putMessage function is also server action, since we have the "use
-          server" directive to ensure it runs on the server. It receives
+          The putMessage function is also a server action, since we have the
+          "use server" directive to ensure it runs on the server. It receives
           <code>formData</code> from the "UpdateMessage" component and extracts
           the message and ID fields using <code>formData.get("message")</code>{' '}
           and <code>formData.get("id")</code>. These values are then packaged
@@ -520,15 +527,54 @@ export default function Blog3() {
           experience seamless by automatically reloading the most up-to-date
           information.
         </p>
+        <p className='mb-2 md:mb-4'>
+          All four server actions must include{' '}
+          <span className='font-bold'>
+            the Lambda function URLs from your Terraform run
+          </span>
+          . Refer to the{' '}
+          <Link href='/blogs/2' className='text-blue-500 hover:underline'>
+            prior blog
+          </Link>{' '}
+          for more information on this—the Terraform codebase is set up to
+          output the Lambda function URLs with corresponding functionality, so
+          you know which is which. If you decide to clone this repo, then you
+          must replace my Lambda function URLs with yours.
+        </p>
+        <p className='mb-2 md:mb-4'>
+          While I didn't cover some of the other components and server actions,
+          the ones we <span className='italic'>did</span> cover in this guide,
+          should set you up to incorporate the app. If you review the code,
+          there are parallels between all the other components and server
+          actions, so try to identify patterns as you piece things together. And
+          if you have questions, please reach out to me on{' '}
+          <a
+            target='_blank'
+            className='text-blue-500 hover:underline'
+            href='https://www.linkedin.com/in/refayathaque/'
+          >
+            LinkedIn
+          </a>
+          .
+        </p>
       </section>
-
-      <section className='mb-2 text-sm text-gray-700 md:mb-4 md:text-base'></section>
-
-      <section className='mb-2 text-sm text-gray-700 md:mb-4 md:text-base'></section>
 
       {/* final section below */}
       <section className='mb-6 text-sm text-gray-700 md:mb-4 md:text-base'>
-        <p className='mb-2 italic md:mb-4'>To be continued...</p>
+        <Image
+          src='/images/aws-nextjs-crud-app/finished-product.png' // Replace with your actual image URL
+          alt='gc-res screenshot'
+          className='h-auto w-auto'
+          width={finishedProductDimensions.width}
+          height={finishedProductDimensions.height}
+        />
+        <p className='mb-2 md:mb-4'>
+          This is how your app should look once you've created the Lambda
+          functions, hooked them up to the server actions, and tried to run this
+          app (FYI, <code>npm run dev</code> will expose the app on
+          <code>localhost:3001</code>, I changed the default{' '}
+          <code>package.json</code> scripts)
+        </p>
       </section>
     </main>
   );
