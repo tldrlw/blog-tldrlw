@@ -6,7 +6,7 @@ run-name: ${{ github.event_name }}
 on:
   # push:
   #   branches:
-  #     - main
+  #     - dev
   #   paths:
   #     - infrastructure/**
   workflow_dispatch:
@@ -48,7 +48,7 @@ jobs:
 
       - name: plan dvm
         id: plan-dvm
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/dev' }}
         env:
           TF_VAR_ENV: dvm
           TF_VAR_IMAGE_TAG: ${{ github.event.inputs.image_tag }}
@@ -58,7 +58,7 @@ jobs:
 
       - name: apply dvm
         id: apply-dvm
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/dev' }}
         env:
           TF_VAR_ENV: dvm
           TF_VAR_IMAGE_TAG: ${{ github.event.inputs.image_tag }}

@@ -4,9 +4,9 @@ import Header from '@/components/header';
 import Navbar from '@/components/navbar';
 
 export const metadata = {
-  title: 'AppDev, Cloud, DevSecOps & Formula1 insights | tldrlw',
+  title: 'AppDev, Cloud, DevSecOps & Formula 1 insights | tldrlw',
   description:
-    'Explore the tech behind tldrlw, with guidance on building apps for business exposure, process automation and security, using tools like Next.JS, the AWS Cloud, Terraform, and ensuring continuous integration and delivery via GitHub Actions.',
+    'Discover the tech behind tldrlw, with guidance on building apps for business exposure, process automation, and security using Next.js, AWS Cloud, Terraform, and setting up CI/CD pipelines via GitHub Actions.',
 };
 
 export default function RootLayout({ children }) {
