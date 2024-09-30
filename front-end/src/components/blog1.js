@@ -183,13 +183,18 @@ output "TF_VAR_HOSTNAME" {
 `;
 
 const albTf = `
-module "alb" {
-  source               = "git::https://github.com/tldrlw/terraform-modules.git//app-load-balancer?ref=dev"
+module "main" {
+  source               = "git::https://github.com/tldrlw/terraform-modules.git//app-load-balancer"
   vpc_id               = aws_vpc.main.id
   subnet_ids           = aws_subnet.public[*].id
   alb_name             = var.APP_NAME
-  hostname             = var.HOSTNAME
-  target_group_name    = var.APP_NAME
+  target_group_and_listener_config = [
+    {
+      name              = var.APP_NAME
+      domain            = var.HOSTNAME
+      health_check_path = "/"
+    }
+  ]
   certificate_arn      = aws_acm_certificate_validation.main.certificate_arn
   # change if you don't want your app to be entirely public
   security_group_cidrs = ["0.0.0.0/0"]
@@ -208,7 +213,7 @@ module "ecs_service" {
   image_tag                   = var.IMAGE_TAG
   ecs_cluster_id              = aws_ecs_cluster.main.id
   task_count                  = 1
-  alb_target_group_arn        = module.main.alb_target_group_arn
+  alb_target_group_arn        = module.main.alb_target_group_arns[0]
   source_security_group_id    = module.main.alb_security_group_id
   # change if you don't want your app to be entirely public
   security_group_egress_cidrs = ["0.0.0.0/0"]
@@ -269,8 +274,9 @@ export default function Blog1() {
             className='text-blue-500 hover:underline'
             href='https://github.com/tldrlw/blog-tldrlw/tree/boilerplate-nextjs'
           >
-            here.
+            here
           </a>
+          .
         </p>
         <p className='mb-2 md:mb-4'>
           The first step is to set up your Terraform remote backend state using
