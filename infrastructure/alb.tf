@@ -1,10 +1,8 @@
 module "main" {
-  source               = "git::https://github.com/tldrlw/terraform-modules.git//app-load-balancer?ref=dev"
+  source               = "git::https://github.com/tldrlw/terraform-modules.git//app-load-balancer"
   vpc_id               = aws_vpc.main.id
   subnet_ids           = aws_subnet.public[*].id
   alb_name             = var.APP_NAME
-  # hostname             = var.HOSTNAME
-  # target_group_name    = var.APP_NAME
   target_group_and_listener_config = [
     {
       name              = var.APP_NAME
