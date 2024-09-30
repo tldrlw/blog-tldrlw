@@ -34,3 +34,13 @@ variable "HOSTNAME" {
 output "TF_VAR_HOSTNAME" {
   value = var.HOSTNAME
 }
+
+variable "ADDITIONAL_HOSTNAMES" {
+  description = "List of additional hostnames (e.g., monza.tldrlw.com)"
+  type        = list(string)
+  default     = ["monza.tldrlw.com"]
+}
+
+output "TF_VAR_ADDITIONAL_HOSTNAME" {
+  value = var.ADDITIONAL_HOSTNAMES
+}
