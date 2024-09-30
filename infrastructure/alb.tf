@@ -10,11 +10,6 @@ module "main" {
       name              = var.APP_NAME
       domain            = var.HOSTNAME
       health_check_path = "/"
-    },
-    {
-      name              = "monza-tldrlw"
-      domain            = "monza.tldrlw.com"
-      health_check_path = "/"
     }
   ]
   certificate_arn      = aws_acm_certificate_validation.main.certificate_arn
