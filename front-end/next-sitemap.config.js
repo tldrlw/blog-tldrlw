@@ -22,6 +22,12 @@ module.exports = {
       priority: 0.7,
       lastmod: new Date().toISOString(),
     });
+    result.push({
+      loc: '/blogs/4',
+      changefreq: 'monthly',
+      priority: 0.7,
+      lastmod: new Date().toISOString(),
+    });
     return result;
   },
 };
