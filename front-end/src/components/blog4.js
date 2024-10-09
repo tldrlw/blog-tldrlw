@@ -66,9 +66,9 @@ export default async function Blog4() {
           It's intelligent enough to figure out where to run the containers and
           can move them around the allocated machines based on things like
           compute and memory utilization percentages, and also based on the
-          health of the machine itself. E.g., let's say we have machines A, B
-          and C, and we have six containers running in total. Three of them are
-          the same container that services front-end traffic, and the other
+          health of the machine itself. E.g., let&apos;s say we have machines A,
+          B and C, and we have six containers running in total. Three of them
+          are the same container that services front-end traffic, and the other
           three serve as the back-end API layer to the front-end. K8s will
           constantly shift these six containers around the set of three machines
           to ensure optimal performance and cost-efficiency.
@@ -76,12 +76,12 @@ export default async function Blog4() {
         <p className='mb-2 md:mb-4'>
           In my opinion, K8s is analogous to the game of Tetris. In Tetris, you
           have arrangments of blocks that you have to try and squeeze into
-          whatever space will permit it, and that's what K8s does with
+          whatever space will permit it, and that&apos;s what K8s does with
           containers, containers will have varying memory and compute
-          requirments, and they'll need to fit into machine openings that can
-          accomodate it. While "Pods" will be mentioned in a following section,
-          Pods are the smallest unit of measurement in K8s, and usually each Pod
-          will run a single container, but it{' '}
+          requirments, and they&apos;ll need to fit into machine openings that
+          can accomodate it. While "Pods" will be mentioned in a following
+          section, Pods are the smallest unit of measurement in K8s, and usually
+          each Pod will run a single container, but it{' '}
           <span className='italic'>can run multiple</span> containers, and if
           you're interested in use-cases for a multi-container Pod, look up
           "sidecar".
@@ -126,9 +126,9 @@ export default async function Blog4() {
 
       <section>
         <p className='mb-2 md:mb-4'>
-          Now that we get the point of K8s, let's talk about Docker and running
-          containers, without a basic understanding of these two things, it
-          would be remiss of us to begin talking about the intricacies of K8s
+          Now that we get the point of K8s, let&apos;s talk about Docker and
+          running containers, without a basic understanding of these two things,
+          it would be remiss of us to begin talking about the intricacies of K8s
           and all its different parts.
         </p>
         <p className='mb-2 md:mb-4'>
@@ -172,8 +172,8 @@ export default async function Blog4() {
           will be looking into EKS.
         </p>
         <p className='mb-2 md:mb-4'>
-          Ok, so we discussed why K8s is so great at the start, let's again
-          remind ourselves of what it is and what it's used for?
+          Ok, so we discussed why K8s is so great at the start, let&apos;s again
+          remind ourselves of what it is and what it&apos;s used for?
         </p>
         <p className='mb-2 md:mb-4'>
           {' '}
@@ -350,23 +350,26 @@ export default async function Blog4() {
         <div className='my-4'>{k8sObjectsExplanation()}</div>
         <p className='mb-2 md:mb-4'>
           Sure, this is all great, a bunch of concepts pertaining to K8s, but it
-          still remains very esoteric. So let's look at an architecture diagram
-          to understand the interplay and synergies between the control plane,
-          node components and objects, and how they all contribute to run a very
-          simple app in K8s. The architecture diagram will focus on running K8s
-          in EKS, and whatever concepts and tooling is specific to AWS, will be
-          elaborated on. However, before we proceed to EKS, why used a cloud
-          managed-service like EKS instead of running it ("vanilla" K8s) on your
-          own locally, in a cloud VM like EC2, etc.?
+          still remains very esoteric. So let&apos;s look at an architecture
+          diagram to understand the interplay and synergies between the control
+          plane, node components and objects, and how they all contribute to run
+          a very simple app in K8s. The architecture diagram will focus on
+          running K8s in EKS, and whatever concepts and tooling is specific to
+          AWS, will be elaborated on. However, before we proceed to EKS, why
+          used a cloud managed-service like EKS instead of running it ("vanilla"
+          K8s) on your own locally, in a cloud VM like EC2, etc.?
         </p>
         <p className='mb-2 md:mb-4'>
           K8s is a technology that's not easy to set up and maintain, as
           discussed above, there are so many different components to manage
           (e.g., control plane, worker nodes, objects, etc.), in addition to a
-          plethora of add-ons you can experiment with. So for many developers,
-          it's just easier to rely on a cloud-provider's managed service to
-          handle the "heavy-lifting", and this is something AWS EKS can do for
-          us. For example, there is an open-source (
+          plethora of add-ons and plugins (e.g., cilium, core-dns, etc.). So for
+          many developers, it&apos;s just easier to rely on a
+          cloud-provider&apos;s managed service to handle the "heavy-lifting",
+          and by "heavy-lifting", I mean the work that needs to be done to
+          maintain a highly available, secure and scalable environment for
+          running K8s, and this (in addition to so much more) is something AWS
+          EKS can do for us. For example, there is an open-source (
           <span className='italic'>
             but recently taken over by AWS themselves
           </span>
@@ -380,7 +383,10 @@ export default async function Blog4() {
           >
             here
           </a>
-          .
+          . EKS can also architect and maintain the control plane for you, in
+          addition to something called "Managed Node Groups", that make it
+          easier to establish groups of EC2 instances that serve as your worker
+          nodes.
         </p>
       </section>
       <section className='mb-6 text-sm text-gray-700 md:mb-4 md:text-base'>
