@@ -128,7 +128,7 @@ export default async function Blog4() {
         </p>
       </section>
 
-      <section>
+      <section className='mb-2 text-sm text-gray-700 md:mb-4 md:text-base'>
         <p className='mb-2 md:mb-4'>
           Now that we understand the basics of K8s, let&apos;s shift our focus
           to Docker and running containers. Without a foundational understanding
@@ -321,7 +321,7 @@ export default async function Blog4() {
         </div>
       </section>
 
-      <section>
+      <section className='mb-2 text-sm text-gray-700 md:mb-4 md:text-base'>
         <h2 className='mb-2 font-bold md:mb-4 md:text-lg'>Objects</h2>
         <p className='mb-2 md:mb-4'>
           In K8s, resources are represented as objects, which are persistent
@@ -436,11 +436,11 @@ export default async function Blog4() {
           hand, <code>eksctl</code> is a specialized tool for creating and
           managing AWS EKS clusters. It simplifies tasks such as provisioning
           EKS control planes, node groups, and networking components with just a
-          few commands. While
-          <code>kubectl</code> is used to manage applications and resources
-          inside an existing K8s cluster, <code>eksctl</code> is focused on the
-          infrastructure, automating the setup and maintenance of EKS clusters.
-          Both tools are often used together when working with AWS EKS—
+          few commands. While <code>kubectl</code> is used to manage
+          applications and resources inside an existing K8s cluster,{' '}
+          <code>eksctl</code> is focused on the infrastructure, automating the
+          setup and maintenance of EKS clusters. Both tools are often used
+          together when working with AWS EKS—
           <code>eksctl</code> for cluster creation and <code>kubectl</code> for
           day-to-day management of resources within the cluster.
         </p>
