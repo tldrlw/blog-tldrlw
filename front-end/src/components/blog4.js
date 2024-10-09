@@ -22,9 +22,9 @@ export default async function Blog4() {
       <p className='mb-2 text-sm font-light md:mb-4 md:text-base'>{date}</p>
       <section className='mb-2 text-sm text-gray-700 md:mb-4 md:text-base'>
         <p className='mb-2 md:mb-4'>
-          Having worked with Kubernetes (K8s) both on-prem and in AWS EKS
-          (Elastic Kubernetes Service), <span className='font-bold'>and</span>{' '}
-          passed the{' '}
+          Having worked with Kubernetes (colloquilly known as "K8s") both
+          on-prem and in AWS EKS (Elastic Kubernetes Service),{' '}
+          <span className='font-bold'>and</span> passed the{' '}
           <a
             className='text-blue-500 hover:underline'
             href='https://www.credly.com/badges/cd704a5f-0aee-473e-8dcd-d9f1262a52d0'
@@ -334,8 +334,11 @@ export default async function Blog4() {
           and policies such as restart behavior, upgrades, and fault tolerance.
           Once an object is created, K8s continually works to maintain the
           desired state you declare, following a{' '}
-          <span className='italic'>declarative</span> model where you specify
-          the intended outcome, and the system ensures it is achieved.
+          <span className='font-bold'>
+            <span className='italic'>declarative</span> model where you specify
+            the intended outcome, and the system ensures it is achieved
+          </span>
+          .
         </p>
         <p className='mb-2 md:mb-4'>
           For example, a Pod is the smallest deployable unit and encapsulates
@@ -348,7 +351,7 @@ export default async function Blog4() {
           configuration data and sensitive information, such as API keys or
           environment variables, that can be used by containers. By abstracting
           the complexity of managing containerized applications, K8s simplifies
-          deployment, scaling, and maintenance, with tools like
+          deployment, scaling, and maintenance, with tools like{' '}
           <code>kubectl</code> or direct API integration to manage these
           objects.
         </p>
@@ -419,11 +422,34 @@ export default async function Blog4() {
           </p>
         </div>
         <p className='mb-2 md:mb-4'>
-          EKS can also architect and maintain the control plane for you, in
-          addition to offering something called "Managed Node Groups," which
-          makes it easier to set up groups of EC2 instances that serve as your
-          worker nodes. In the diagram below, I&apos;ll discuss some of these
-          features.
+          {' '}
+          <span className='!important font-bold text-customOrangeLogo'>
+            Important!{' '}
+          </span>
+          <code>kubectl</code> and <code>eksctl</code> are not serving the same
+          function. they serve different purposes when working with K8s and AWS
+          EKS. <code>kubectl</code> is the command-line tool used to interact
+          with any K8s cluster, allowing you to manage resources like Pods,
+          Deployments, and Services, perform CRUD operations, view logs, and
+          execute commands within containers. It works across all K8s
+          environments, regardless of where the cluster is running. On the other
+          hand, <code>eksctl</code> is a specialized tool for creating and
+          managing AWS EKS clusters. It simplifies tasks such as provisioning
+          EKS control planes, node groups, and networking components with just a
+          few commands. While
+          <code>kubectl</code> is used to manage applications and resources
+          inside an existing K8s cluster, <code>eksctl</code> is focused on the
+          infrastructure, automating the setup and maintenance of EKS clusters.
+          Both tools are often used together when working with AWS EKS—
+          <code>eksctl</code> for cluster creation and <code>kubectl</code> for
+          day-to-day management of resources within the cluster.
+        </p>
+        <p className='mb-2 md:mb-4'>
+          Returning to EKS, it can also architect and maintain the control plane
+          for you, in addition to offering something called "Managed Node
+          Groups," which makes it easier to set up groups of EC2 instances that
+          serve as your worker nodes. In the diagram below, I&apos;ll discuss
+          some of these features.
         </p>
         <div className='my-3 md:mb-4 md:flex md:flex-col md:items-center'>
           <Image
