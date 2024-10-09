@@ -5,7 +5,7 @@ export default function Blogs() {
     { title: 'Deploying a public Next.js app to AWS ECS', slug: 'blogs/1' },
     { title: 'AWS Next.js CRUD app (infrastructure)', slug: 'blogs/2' },
     { title: 'AWS Next.js CRUD app (front-end)', slug: 'blogs/3' },
-    { title: 'Intro to Kubernetes (K8s) and AWS EKS', slug: 'blogs/4' },
+    { title: 'Intro to Kubernetes and AWS EKS', slug: 'blogs/4' },
   ];
 
   return (

@@ -42,7 +42,7 @@ export const k8sNodeComponentsExplanation = () => {
 export const k8sControlPlaneExplanation = () => {
   const heading = 'K8s Control Plane Components';
   const description =
-    'The control plane is responsible for managing the overall state of the K8s cluster. It ensures that the cluster&apos;s desired state is maintained, coordinating everything from scheduling to resource management. Below is a breakdown of the key components in the control plane and how they interact to ensure the smooth operation of the cluster.';
+    "The control plane is responsible for managing the overall state of the K8s cluster. It ensures that the cluster's desired state is maintained, coordinating everything from scheduling to resource management. Below is a breakdown of the key components in the control plane and how they interact to ensure the smooth operation of the cluster.";
   const components = [
     {
       component: 'kube-apiserver',
