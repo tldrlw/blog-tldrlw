@@ -7,7 +7,7 @@ import {
   k8sNodeComponentsExplanation,
 } from '@/app/lib/overviews/blog4';
 
-const title = 'Intro to K8s (K8s) and AWS EKS';
+const title = 'Intro to Kubernetes and AWS EKS';
 const date = 'Wednesday, October 9, 2024';
 
 export default async function Blog4() {
