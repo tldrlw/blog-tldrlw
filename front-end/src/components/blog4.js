@@ -386,7 +386,7 @@ export default async function Blog4() {
           . EKS can also architect and maintain the control plane for you, in
           addition to something called "Managed Node Groups", that make it
           easier to establish groups of EC2 instances that serve as your worker
-          nodes.
+          nodes. In the diagram below, I&apos;ll discuss some of these things.
         </p>
       </section>
       <section className='mb-6 text-sm text-gray-700 md:mb-4 md:text-base'>
