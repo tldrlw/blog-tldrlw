@@ -1,4 +1,4 @@
-import CodeBlock from '@/components/codeBlock';
+// import CodeBlock from '@/components/codeBlock';
 import Image from 'next/image';
 import { resizeImage } from '@/app/lib/utilities';
 import {
@@ -12,9 +12,9 @@ const date = 'Wednesday, October 9, 2024';
 
 export default async function Blog4() {
   const dimensions = await resizeImage('components-of-kubernetes.svg', 0.4); // Call the function directly in the server component
-  const tetrisDimensions = await resizeImage('tetris-1.png', 0.5); // Call the function directly in the server component
-  const eksctlDimensions = await resizeImage('eksctl-build-cluster.png', 0.4); // Call the function directly in the server component
-  const diagramDimensions = await resizeImage('eks.webp', 2); // Call the function directly in the server component
+  const tetrisDimensions = await resizeImage('tetris-1.png', 0.5);
+  const eksctlDimensions = await resizeImage('eksctl-build-cluster.png', 0.4);
+  const diagramDimensions = await resizeImage('eks.webp', 2);
 
   return (
     <main>
@@ -426,10 +426,12 @@ export default async function Blog4() {
           <span className='!important font-bold text-customOrangeLogo'>
             Important!{' '}
           </span>
-          <code>kubectl</code> and <code>eksctl</code> are not serving the same
-          function. they serve different purposes when working with K8s and AWS
-          EKS. <code>kubectl</code> is the command-line tool used to interact
-          with any K8s cluster, allowing you to manage resources like Pods,
+          <code>kubectl</code> and <code>eksctl</code> are{' '}
+          <span className='italic'>
+            not serving the same function when working with K8s and AWS EKS
+          </span>
+          . <code>kubectl</code> is the command-line tool used to interact with
+          any K8s cluster, allowing you to manage resources like Pods,
           Deployments, and Services, perform CRUD operations, view logs, and
           execute commands within containers. It works across all K8s
           environments, regardless of where the cluster is running. On the other
