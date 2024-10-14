@@ -170,7 +170,15 @@ export default async function About() {
           designed for motor racing enthusiasts who are tired of the
           distractions and mental fatigue that social media induces. TLDRLW aims
           to be a one-stop hub where fans can get news, race results, insights,
-          and trends, all in one place.
+          and trends, all in one place. You can check it out here at{' '}
+          <a
+            href='https://monza.tldrlw.com'
+            target='_blank'
+            className='text-blue-500 hover:underline'
+          >
+            monza.tldrlw.com
+          </a>
+          .
         </p>
         <p className='mb-2 text-gray-700'>
           <span className='font-bold text-customOrangeLogo'>My</span> goal is to
