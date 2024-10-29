@@ -9,6 +9,8 @@ export const metadata = {
     'Discover the tech behind tldrlw, with guidance on building apps for business exposure, process automation, and security using Next.js, AWS Cloud, Terraform, and setting up CI/CD pipelines via GitHub Actions.',
 };
 
+// just to kick off workflow, will delete later
+
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
