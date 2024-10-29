@@ -1,5 +1,5 @@
 module "main" {
-  source               = "git::https://github.com/tldrlw/terraform-modules.git//app-load-balancer?ref=dev"
+  source               = "git::https://github.com/tldrlw/terraform-modules.git//app-load-balancer"
   vpc_id               = aws_vpc.main.id
   subnet_ids           = aws_subnet.public[*].id
   alb_name             = var.APP_NAME
