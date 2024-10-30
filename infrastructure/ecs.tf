@@ -1,8 +1,8 @@
 resource "aws_ecs_cluster" "main" {
   name = "main"
-  # will also serve:
-  # aws-nextjs-crud-app
+  # also serving:
   # monza-tldrlw
+  # aws-nextjs-crud-app (ran terraform destroy)
 }
 
 module "ecs_service" {
@@ -19,9 +19,9 @@ module "ecs_service" {
   vpc_id                      = aws_vpc.main.id
   container_port              = 3000
   host_port                   = 3000
-  cpu                         = "512"
-  memory                      = "1024"
-  # ^ doubled both on 9/18/24
+  # cpu                         = "256"
+  # memory                      = "512"
+  # ^ doubled both on 9/18/24, halved again (module default values) on 10/14/24
   # linux_arm64                 = true
   # ^ set to true if building and pushing images to ECR on M-series Macs:
 }
