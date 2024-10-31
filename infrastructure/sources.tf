@@ -13,3 +13,17 @@ data "aws_region" "current" {}
 data "aws_availability_zones" "available" {
   state = "available"
 }
+
+// grafana credentials
+
+# Retrieve the Cognito username from SSM Parameter Store
+data "aws_ssm_parameter" "grafana_username_refayat" {
+  name            = "/grafana/username/refayat" # Ensure the correct parameter name
+  with_decryption = true                        # Decrypt SecureString value
+}
+
+# Retrieve the Cognito password from SSM Parameter Store
+data "aws_ssm_parameter" "grafana_password_refayat" {
+  name            = "/grafana/password/refayat" # Ensure the correct parameter name
+  with_decryption = true                        # Decrypt SecureString value
+}
