@@ -10,6 +10,8 @@ output "TF_VAR_APP_NAME" {
 variable "IMAGE_TAG" {
   type = string
   # not having a default will force me to provide the latest image tag when running terraform locally
+  default = "d67b7c4"
+  # ^ as of 10/30/24
 }
 
 output "TF_VAR_IMAGE_TAG" {
@@ -35,12 +37,12 @@ output "TF_VAR_HOSTNAME" {
   value = var.HOSTNAME
 }
 
-variable "ADDITIONAL_HOSTNAMES" {
+variable "ADDITIONAL_HOSTNAMES_NEW" {
   description = "List of additional hostnames (e.g., monza.tldrlw.com)"
   type        = list(string)
-  default     = ["monza.tldrlw.com"]
+  default     = ["monza.tldrlw.com", "loki.tldrlw.com", "grafana.tldrlw.com"]
 }
 
-output "TF_VAR_ADDITIONAL_HOSTNAME" {
-  value = var.ADDITIONAL_HOSTNAMES
+output "TF_VAR_ADDITIONAL_HOSTNAME_NEW" {
+  value = var.ADDITIONAL_HOSTNAMES_NEW
 }

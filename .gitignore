@@ -25,3 +25,6 @@ yarn-error.log*
 # IDE specific
 .vscode/
 .idea/
+
+node-js-scripts/cognito-creds.mjs
+node-js-scripts/node_modules

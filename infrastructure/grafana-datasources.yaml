@@ -1,0 +1,9 @@
+apiVersion: 1
+datasources:
+  - name: Loki
+    type: loki
+    access: proxy
+    url: https://loki.tldrlw.com/loki # Updated to HTTPS with /loki path
+    isDefault: true
+    jsonData:
+      maxLines: 1000
