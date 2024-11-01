@@ -2,7 +2,7 @@
 
 # Set variables
 AWS_REGION="us-east-1"         # e.g., us-east-1
-ACCOUNT_ID=""                  # Your AWS account ID
+ACCOUNT_ID="920394549028"      # Your AWS account ID
 ECR_REPO_NAME="grafana-tldrlw" # ECR repository name, defined in ecr.tf
 IMAGE_NAME="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}"
 TAG="latest"
@@ -14,6 +14,17 @@ function check_docker {
     exit 1
   fi
 }
+
+# Function to check if the account ID is set
+function check_account_id {
+  if [[ -z "${ACCOUNT_ID}" ]]; then
+    echo "Error: AWS account ID is not set. Please set the ACCOUNT_ID variable and try again."
+    exit 1
+  fi
+}
+
+# Check if the account ID is set
+check_account_id
 
 # Check if Docker is running
 check_docker

@@ -52,7 +52,7 @@ module "ecs_service_loki" {
 }
 
 module "ecs_service_grafana" {
-  source   = "git::https://github.com/tldrlw/terraform-modules.git//ecs-service"
+  source   = "git::https://github.com/tldrlw/terraform-modules.git//ecs-service?ref=dev"
   app_name = "grafana-tldrlw"
   # ecr_repo_url                = "grafana/grafana"
   ecr_repo_url                = aws_ecr_repository.grafana_with_awscli.repository_url
@@ -67,16 +67,17 @@ module "ecs_service_grafana" {
   container_port              = 3000
   host_port                   = 3000
   environment_variables = [
+    # { name = "TEST", value = "test" },
+    # ^ comment/uncomment to get new task
     { name = "GF_SECURITY_ADMIN_USER", value = data.aws_ssm_parameter.grafana_username_refayat.value },
+    # can shell into container with e1s and run `echo $GF_SECURITY_ADMIN_USER` to see ^
     { name = "GF_SECURITY_ADMIN_PASSWORD", value = data.aws_ssm_parameter.grafana_password_refayat.value },
-    # can shell into container with e1s and run `echo $GF_SECURITY_ADMIN_PASSWORD` to see ^
     { name = "GF_SERVER_PROTOCOL", value = "http" }, # Use HTTP if ALB terminates HTTPS
     { name = "GF_SERVER_HTTP_PORT", value = "3000" },
     { name = "GF_DATASOURCE_LOKI_URL", value = "https://loki.tldrlw.com/loki" }
     # ^ Environment Variable (GF_DATASOURCE_LOKI_URL): While not required for provisioning, the GF_DATASOURCE_LOKI_URL environment variable can act as a backup configuration reference if you ever define the data source dynamically.
   ]
   iam_user_for_container_shell = "local"
-  s3_ecs_config_files_access   = true
   linux_arm64                  = true
   # ^ set to true if building and pushing images to ECR on M-series Macs:
   # since building and pushing (locally) a custom grafana image with awscli installed (see infrastructure/grafana-with-awscli-image.sh)
@@ -85,37 +86,7 @@ module "ecs_service_grafana" {
 # rm -rf .terraform/modules > terraform init
 # run ^ after pushing up changes to modules when testing locally
 
-resource "null_resource" "copy_grafana_datasource_to_running_container" {
-  depends_on = [module.ecs_service_grafana]
-  triggers = {
-    always_run = timestamp() # This will always change on each apply, forcing the provisioner to rerun
-  }
-  # ^ not the best way to do it for changes to grafana service...but can comment out if there are no changes to grafana service...or reduce/comment out sleep below...
-  provisioner "local-exec" {
-    command = <<-EOF
-      # Wait for the ECS task to fully initialize
-      # sleep 360
-      # Get the task ID of the running ECS task
-      TASK_ID=$(aws ecs list-tasks \
-        --cluster ${aws_ecs_cluster.main.name} \
-        --service-name grafana-tldrlw \
-        --desired-status RUNNING \
-        --query "taskArns[0]" \
-        --output text)
-
-      # Execute the command in the container using ECS Exec
-      aws ecs execute-command \
-        --cluster ${aws_ecs_cluster.main.name} \
-        --task $TASK_ID \
-        --container grafana-tldrlw \
-        --interactive \
-        --command "sh -c 'aws s3 cp s3://tldrlw-ecs-config-files/grafana-datasources.yaml . && echo File copied && cd ../../../../ && ./run.sh'"
-    EOF
-  }
-}
-# datasources.yaml File: The startup script pulls grafana-datasources.yaml from S3 and places it in Grafana’s provisioning directory (/etc/grafana/provisioning/datasources/). Grafana reads this directory on startup and loads any data sources defined there.
-# Automatic Provisioning on Grafana Startup: When Grafana starts, it will detect datasources.yaml in the provisioning directory and automatically add the Loki data source based on the settings in that file.
-
+# useful aws cli commands to run shell commands inside running container
 # # Fetch the task ID
 # TASK_ID=$(aws ecs list-tasks \
 #   --cluster main \
