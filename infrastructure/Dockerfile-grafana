@@ -1,12 +1,6 @@
 # Start from the official Grafana image
 FROM grafana/grafana:latest
 
-# Switch to root to install dependencies and AWS CLI (if needed)
-USER root
-
-# Install AWS CLI if you still need it for other purposes
-RUN apk --no-cache add curl python3 py3-pip aws-cli
-
 # Set the working directory to root
 WORKDIR /
 

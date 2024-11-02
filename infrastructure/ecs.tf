@@ -52,10 +52,9 @@ module "ecs_service_loki" {
 }
 
 module "ecs_service_grafana" {
-  source   = "git::https://github.com/tldrlw/terraform-modules.git//ecs-service?ref=dev"
-  app_name = "grafana-tldrlw"
-  # ecr_repo_url                = "grafana/grafana"
-  ecr_repo_url                = aws_ecr_repository.grafana_with_awscli.repository_url
+  source                      = "git::https://github.com/tldrlw/terraform-modules.git//ecs-service?ref=dev"
+  app_name                    = "grafana-tldrlw"
+  ecr_repo_url                = aws_ecr_repository.grafana.repository_url
   image_tag                   = "latest"
   ecs_cluster_id              = aws_ecs_cluster.main.id
   task_count                  = 1
@@ -80,13 +79,13 @@ module "ecs_service_grafana" {
   iam_user_for_container_shell = "local"
   linux_arm64                  = true
   # ^ set to true if building and pushing images to ECR on M-series Macs:
-  # since building and pushing (locally) a custom grafana image with awscli installed (see infrastructure/grafana-with-awscli-image.sh)
+  # since building and pushing (locally) a custom grafana image (see infrastructure/grafana-docker.sh)
 }
 
 # rm -rf .terraform/modules > terraform init
 # run ^ after pushing up changes to modules when testing locally
 
-# useful aws cli commands to run shell commands inside running container
+# useful example aws cli commands to run shell commands inside a running container
 # # Fetch the task ID
 # TASK_ID=$(aws ecs list-tasks \
 #   --cluster main \
