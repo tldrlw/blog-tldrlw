@@ -44,6 +44,11 @@ resource "aws_ecs_task_definition" "promtail" {
   task_role_arn            = aws_iam_role.promtail_task_role.arn           # Task role for application access
   memory                   = "512"
   cpu                      = "256"
+  runtime_platform {
+    operating_system_family = "LINUX"
+    cpu_architecture        = "ARM64"
+  }
+  # ^ see promtail-docker.sh
   container_definitions = jsonencode([
     {
       name      = "promtail"
