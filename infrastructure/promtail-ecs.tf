@@ -54,7 +54,8 @@ resource "aws_ecs_task_definition" "promtail" {
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          awslogs-group         = "/ecs/promtail"
+          awslogs-create-group  = "true",
+          awslogs-group         = "/aws/ecs/promtail"
           awslogs-region        = data.aws_region.current.name
           awslogs-stream-prefix = "ecs"
         }
