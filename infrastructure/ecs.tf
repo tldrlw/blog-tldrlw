@@ -49,6 +49,7 @@ module "ecs_service_loki" {
     { name = "LOKI_STORAGE_CONFIG_FILESYSTEM_DIRECTORY", value = "/data" }
   ]
   iam_user_for_container_shell = "local"
+  linux_arm64                  = true
 }
 
 module "ecs_service_grafana" {
