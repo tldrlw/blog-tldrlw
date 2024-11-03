@@ -32,7 +32,7 @@ module "ecs_service" {
 module "ecs_service_loki" {
   source                      = "git::https://github.com/tldrlw/terraform-modules.git//ecs-service"
   app_name                    = "loki-tldrlw"
-  ecr_repo_url                = "grafana/loki"
+  ecr_repo_url                = aws_ecr_repository.loki.repository_url
   image_tag                   = "latest"
   ecs_cluster_id              = aws_ecs_cluster.main.id
   task_count                  = 1
@@ -66,7 +66,7 @@ module "ecs_service_grafana" {
   container_port              = 3000
   host_port                   = 3000
   environment_variables = [
-    # { name = "TEST", value = "test" },
+    { name = "TEST", value = "test" },
     # ^ comment/uncomment to get new task
     { name = "GF_SECURITY_ADMIN_USER", value = data.aws_ssm_parameter.grafana_username_refayat.value },
     # can shell into container with e1s and run `echo $GF_SECURITY_ADMIN_USER` to see ^

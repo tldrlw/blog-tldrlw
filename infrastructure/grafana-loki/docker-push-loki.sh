@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Set variables
-AWS_REGION="us-east-1"          # e.g., us-east-1
-ACCOUNT_ID="920394549028"       # Your AWS account ID
-ECR_REPO_NAME="fluentbit-tldrlw" # ECR repository name, defined in ecr.tf
+AWS_REGION="us-east-1"      # e.g., us-east-1
+ACCOUNT_ID="920394549028"   # Your AWS account ID
+ECR_REPO_NAME="loki-tldrlw" # ECR repository name, defined in ecr.tf
 IMAGE_NAME="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}"
 TAG="latest"
-DOCKERFILE="Dockerfile-fluentbit" # Specify the Dockerfile name
+DOCKERFILE="Dockerfile-loki" # Specify the Dockerfile name
 
 # Function to check if Docker is running
 function check_docker {
@@ -37,13 +37,13 @@ if ! aws ecr get-login-password --region ${AWS_REGION} | docker login --username
   exit 1
 fi
 
-# Check if Dockerfile-fluentbit exists
+# Check if Dockerfile-loki exists
 if [[ ! -f "${DOCKERFILE}" ]]; then
   echo "Error: ${DOCKERFILE} not found in the current directory."
   exit 1
 fi
 
-# Build the Docker image using Dockerfile-fluentbit
+# Build the Docker image using Dockerfile-loki
 echo "Building the Docker image using ${DOCKERFILE}..."
 if ! docker build -f ${DOCKERFILE} -t ${IMAGE_NAME}:${TAG} .; then
   echo "Error: Failed to build the Docker image."

@@ -16,11 +16,11 @@ resource "aws_ecr_repository" "grafana" {
   force_delete = true
 }
 
-# resource "aws_ecr_repository" "fluentbit" {
-#   name                 = "fluentbit-tldrlw"
-#   image_tag_mutability = "MUTABLE"
-#   image_scanning_configuration {
-#     scan_on_push = true
-#   }
-#   force_delete = true
-# }
+resource "aws_ecr_repository" "loki" {
+  name                 = "loki-tldrlw"
+  image_tag_mutability = "MUTABLE"
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+  force_delete = true
+}

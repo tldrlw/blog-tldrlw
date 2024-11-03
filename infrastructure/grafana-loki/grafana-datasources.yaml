@@ -3,7 +3,7 @@ datasources:
   - name: Loki
     type: loki
     access: proxy
-    url: https://loki.tldrlw.com/loki # Updated to HTTPS with /loki path
+    url: https://loki.tldrlw.com
     isDefault: true
     jsonData:
       maxLines: 1000

@@ -1,7 +1,0 @@
-# Use the AWS for Fluent Bit image
-FROM public.ecr.aws/aws-observability/aws-for-fluent-bit:2.32.2.20241008
-# https://github.com/aws/aws-for-fluent-bit?tab=readme-ov-file#consuming-aws-for-fluent-bit-versions
-# ^ they recommend using stable and not latest
-
-# Copy your configuration file
-COPY fluent-bit.conf /fluent-bit/etc/fluent-bit.conf
