@@ -17,11 +17,12 @@ variable "loki_url" {
 }
 
 resource "aws_lambda_function" "cloudwatch_to_loki" {
-  function_name = var.function_name
-  role          = aws_iam_role.lambda_role.arn
-  handler       = "ship-to-loki.handler" # Specify the handler
-  runtime       = "nodejs20.x"           # Use Node.js 18.x or later
-  timeout       = 30
+  function_name    = var.function_name
+  role             = aws_iam_role.lambda_role.arn
+  handler          = "ship-to-loki.handler" # Specify the handler
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  runtime          = "nodejs20.x" # Use Node.js 18.x or later
+  timeout          = 30
 
   # Use the zipped file created by the archive_file resource
   filename = data.archive_file.lambda_zip.output_path

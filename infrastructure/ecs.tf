@@ -44,11 +44,16 @@ module "ecs_service_loki" {
   container_port              = 3100
   host_port                   = 3100
   environment_variables = [
+    { name = "TEST", value = "test" },
+    # ^ comment/uncomment to get new task
     { name = "PORT", value = "3100" },
     { name = "LOKI_CHUNK_RETENTION_DURATION", value = "168h" },
     { name = "LOKI_STORAGE_CONFIG_FILESYSTEM_DIRECTORY", value = "/data" }
   ]
   iam_user_for_container_shell = "local"
+  linux_arm64                  = true
+  # ^ set to true if building and pushing images to ECR on M-series Macs:
+  # since building and pushing (locally) a custom grafana image (see infrastructure/grafana-loki/docker-push-loki.sh)
 }
 
 module "ecs_service_grafana" {
@@ -79,7 +84,7 @@ module "ecs_service_grafana" {
   iam_user_for_container_shell = "local"
   linux_arm64                  = true
   # ^ set to true if building and pushing images to ECR on M-series Macs:
-  # since building and pushing (locally) a custom grafana image (see infrastructure/grafana-docker.sh)
+  # since building and pushing (locally) a custom grafana image (see infrastructure/grafana-loki/docker-push-grafana.sh)
 }
 
 # rm -rf .terraform/modules > terraform init

@@ -4,5 +4,5 @@ FROM grafana/loki:latest
 # Copy your loki-config.yaml into the container
 COPY loki-config.yaml /etc/loki/loki-config.yaml
 
-# Specify the command to run Loki with your custom configuration file
-CMD ["-config.file=/etc/loki/loki-config.yaml"]
+# Specify the command to run Loki with the custom configuration and additional flag
+ENTRYPOINT ["/usr/bin/loki", "-config.file=/etc/loki/loki-config.yaml", "-validation.allow-structured-metadata=false"]

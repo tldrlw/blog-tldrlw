@@ -11,7 +11,12 @@ ingester:
       replication_factor: 1
   chunk_idle_period: 5m
   chunk_retain_period: 30s
-  max_transfer_retries: 0
+
+common:
+  path_prefix: /tmp/loki
+
+compactor:
+  working_directory: /tmp/loki/compactor
 
 schema_config:
   configs:
@@ -27,19 +32,10 @@ storage_config:
   boltdb_shipper:
     active_index_directory: /tmp/loki/index
     cache_location: /tmp/loki/cache
-    shared_store: filesystem
   filesystem:
     directory: /tmp/loki/chunks
 
 limits_config:
-  enforce_metric_name: false
   reject_old_samples: true
   reject_old_samples_max_age: 168h
-  max_streams_per_user: 0  # Set to 0 for unlimited streams
-
-chunk_store_config:
-  max_look_back_period: 0s
-
-table_manager:
-  retention_deletes_enabled: false
-  retention_period: 0s
+  allow_structured_metadata: false  # Ensure this is included
