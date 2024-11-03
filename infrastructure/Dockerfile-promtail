@@ -1,8 +1,0 @@
-# Use the official Promtail image as the base
-FROM grafana/promtail:latest
-
-# Copy your Promtail configuration file into the container
-COPY promtail-config.yaml /etc/promtail/promtail-config.yaml
-
-# Set the command to run Promtail with the specified configuration
-CMD ["-config.file=/etc/promtail/promtail-config.yaml"]
