@@ -81,7 +81,6 @@ module "ecs_service_grafana" {
     { name = "GF_DATASOURCE_LOKI_URL", value = "https://loki.tldrlw.com/loki" }
     # ^ Environment Variable (GF_DATASOURCE_LOKI_URL): While not required for provisioning, the GF_DATASOURCE_LOKI_URL environment variable can act as a backup configuration reference if you ever define the data source dynamically.
   ]
-  iam_user_for_container_shell = "local"
   linux_arm64                  = true
   # ^ set to true if building and pushing images to ECR on M-series Macs:
   # since building and pushing (locally) a custom grafana image (see infrastructure/grafana-loki/docker-push-grafana.sh)

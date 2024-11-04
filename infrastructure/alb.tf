@@ -14,7 +14,8 @@ module "main" {
     {
       name              = "monza-tldrlw"
       domain            = "monza.tldrlw.com"
-      health_check_path = "/"
+      health_check_path = "/health"
+      # ^ https://github.com/tldrlw/monza-tldrlw/blob/main/front-end/src/app/health/page.js
       port              = 3000
     },
     {

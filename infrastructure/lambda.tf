@@ -1,36 +1,47 @@
+# Security Group for the Lambda Function
+resource "aws_security_group" "lambda_sg" {
+  vpc_id                 = aws_vpc.main.id
+  name                   = "lambda-security-group"
+  description            = "Security group for Lambda function"
+  revoke_rules_on_delete = true
+}
+
+# Egress rule to allow all outbound traffic (default behavior for Lambda)
+resource "aws_security_group_rule" "lambda_egress" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  description       = "Allow all outbound traffic"
+  security_group_id = aws_security_group.lambda_sg.id
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
+
 data "archive_file" "lambda_zip" {
   type        = "zip"
   source_dir  = "${path.module}/lambda" # Path to your Lambda function code
-  output_path = "${path.module}/lambda_function.zip"
-}
-
-variable "region" {
-  default = "us-east-1"
-}
-
-variable "function_name" {
-  default = "cloudwatch-to-loki"
-}
-
-variable "loki_url" {
-  default = "https://loki.tldrlw.com/loki/api/v1/push"
+  output_path = "${path.module}/ship-to-loki.zip"
 }
 
 resource "aws_lambda_function" "cloudwatch_to_loki" {
-  function_name    = var.function_name
+  function_name    = "cloudwatch-to-loki"
   role             = aws_iam_role.lambda_role.arn
   handler          = "ship-to-loki.handler" # Specify the handler
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
   runtime          = "nodejs20.x" # Use Node.js 18.x or later
   timeout          = 30
-
   # Use the zipped file created by the archive_file resource
   filename = data.archive_file.lambda_zip.output_path
-
   environment {
     variables = {
-      LOKI_URL = var.loki_url
+      LOKI_URL = "https://loki.tldrlw.com/loki/api/v1/push"
     }
+  }
+  vpc_config {
+    # Every subnet should be able to reach an EFS mount target in the same Availability Zone. Cross-AZ mounts are not permitted.
+    subnet_ids         = aws_subnet.private[*].id
+    security_group_ids = [aws_security_group.lambda_sg.id]
   }
 }
 
@@ -51,29 +62,13 @@ resource "aws_iam_role" "lambda_role" {
   })
 }
 
-# Attach the AWSLambdaBasicExecutionRole Managed Policy to Allow Logging to CloudWatch
-# resource "aws_iam_role_policy_attachment" "lambda_basic_execution_policy" {
-#   role       = aws_iam_role.lambda_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-# }
-
-# Custom IAM Policy for Lambda to Access CloudWatch Logs and Make HTTP Requests
+# Custom IAM Policy for Lambda to make HTTP requests
 resource "aws_iam_policy" "lambda_policy" {
   name        = "cloudwatch_to_loki_policy"
   description = "Policy for Lambda to read CloudWatch logs and send HTTP requests"
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
-      # {
-      #   Effect = "Allow",
-      #   Action = [
-      #     "logs:DescribeLogGroups",
-      #     "logs:DescribeLogStreams",
-      #     "logs:GetLogEvents",
-      #     "logs:FilterLogEvents"
-      #   ],
-      #   Resource = "*"
-      # },
       {
         Effect = "Allow",
         Action = [
@@ -104,7 +99,7 @@ data "aws_iam_policy_document" "lambda_logging" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#cloudwatch-logging-and-permissions
 
 resource "aws_iam_policy" "lambda_logging" {
-  name        = "${var.function_name}-logging"
+  name        = "cloudwatch-to-loki-logging"
   path        = "/lambda/"
   description = "IAM policy for logging from a lambda"
   policy      = data.aws_iam_policy_document.lambda_logging.json
@@ -121,10 +116,7 @@ resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
 
-# # Define the CloudWatch Log Group (replace with your log group name)
-# resource "aws_cloudwatch_log_group" "log_group" {
-#   name = "/aws/lambda/monza-tldrlw-get" # Replace with your actual log group name
-# }
+##
 
 variable "monza_tldrlw_get_lg_name" {
   default = "/aws/lambda/monza-tldrlw-get"
