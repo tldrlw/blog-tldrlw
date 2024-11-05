@@ -1,9 +1,10 @@
 resource "aws_ecs_service" "loki" {
-  name            = "loki-tldrlw"
-  cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.loki.arn
-  desired_count   = 1 # Adjust this based on your needs
-  launch_type     = "FARGATE"
+  name                   = "loki-tldrlw"
+  cluster                = aws_ecs_cluster.main.id
+  task_definition        = aws_ecs_task_definition.loki.arn
+  desired_count          = 1 # Adjust this based on your needs
+  launch_type            = "FARGATE"
+  enable_execute_command = true # Enables ECS Exec, see `data "aws_iam_policy_document" "ecs_exec_policy"` in infrastructure/loki-iam.tf
   network_configuration {
     subnets          = aws_subnet.public[*].id         # List of subnet IDs
     security_groups  = [aws_security_group.loki_sg.id] # Security group ID(s)
@@ -39,7 +40,7 @@ resource "aws_ecs_task_definition" "loki" {
       region         = data.aws_region.current.name
       environment_variables = jsonencode(
         [
-          # { name = "TEST", value = "test" },
+          { name = "TEST", value = "test" },
           # ^ comment/uncomment to get new task
           { name = "PORT", value = "3100" },
           { name = "LOKI_CHUNK_RETENTION_DURATION", value = "168h" },
