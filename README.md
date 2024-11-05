@@ -1,6 +1,6 @@
 # blog-tldrlw
 
-This repository contains infrastructure and application code for **blog-tldrlw**, a shared component of the tldrlw ecosystem. It includes resources that are utilized by multiple applications running in the `us-east-1` region, ensuring efficient and centralized management.
+This repository contains infrastructure and application code for **blog-tldrlw**, and shared components of the tldrlw ecosystem. It includes resources that are utilized by multiple applications running in the `us-east-1` region, ensuring efficient and centralized management.
 
 ## Shared Resources
 
