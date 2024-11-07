@@ -28,7 +28,3 @@ yarn-error.log*
 
 node-js-scripts/creds.mjs
 node-js-scripts/node_modules
-
-infrastructure/lambda/node_modules
-
-infrastructure/*.zip
