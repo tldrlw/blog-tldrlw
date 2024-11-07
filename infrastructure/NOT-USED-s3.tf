@@ -38,10 +38,10 @@
 # resource "aws_s3_object" "grafana_datasources" {
 #   key                    = "grafana-datasources.yaml"
 #   bucket                 = aws_s3_bucket.ecs_config_files.id
-#   source                 = "${path.module}/grafana-datasources.yaml" # Path to your local YAML file
+#   source                 = "${path.module}/grafana-loki/grafana-datasources.yaml" # Path to your local YAML file
 #   server_side_encryption = "AES256"
 #   # Use etag to detect file content changes and force updates to S3
-#   etag = filemd5("${path.module}/grafana-datasources.yaml")
+#   etag = filemd5("${path.module}/grafana-loki/grafana-datasources.yaml")
 #   tags = {
 #     Name = "grafana_datasources.yaml"
 #   }
