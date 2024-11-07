@@ -27,3 +27,17 @@ data "aws_ssm_parameter" "grafana_password_refayat" {
   name            = "/grafana/password/refayat" # Ensure the correct parameter name
   with_decryption = true                        # Decrypt SecureString value
 }
+
+// getting cloudwatch log group ARNs to pass into logging module
+
+data "aws_cloudwatch_log_group" "lambda_monza_tldrlw_get" {
+  name = "/aws/lambda/monza-tldrlw-get"
+}
+
+data "aws_cloudwatch_log_group" "ecs_monza_tldrlw" {
+  name = "/aws/ecs/monza-tldrlw"
+}
+
+data "aws_cloudwatch_log_group" "lambda_monza_tldrlw_get_constructors" {
+  name = "/aws/lambda/monza-tldrlw-get-constructors"
+}
