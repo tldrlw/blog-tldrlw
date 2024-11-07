@@ -1,5 +1,36 @@
 # blog-tldrlw
 
-- 9/26/24 - added sitemap, reduced ECS task count to 1, updated meta title and description, added www.blog r53 record, updated blog 2
-- 11/1/24 - grafana needs the grafana-datasources.yaml config file to configure its data source as loki, tried to add a container start up script that would pull the yaml from s3 and then restart the service, but it wan't working, so baking in the yaml in the docker build for that yaml to be available when ECS pulls the image and starts grafana
-- 11/3/24 - spent a lot of time figuring out how to set up the right shipper/forwarder to send cloudwatch logs to loki and then grafana, notes on this available in `logging.md`
+This repository contains infrastructure and application code for **blog-tldrlw**, and shared components of the tldrlw ecosystem. It includes resources that are utilized by multiple applications running in the `us-east-1` region, ensuring efficient and centralized management.
+
+## Shared Resources
+
+The following infrastructure components in this repository are shared across other tldrlw applications:
+
+- **ALB (Application Load Balancer)**
+- **VPC (Virtual Private Cloud)**
+- **ECS Cluster (Elastic Container Service)**
+- **Centralized Logging**: Logging setup used across all tldrlw applications
+
+---
+
+## Change Log
+
+### September 26, 2024
+
+- Added a sitemap for improved SEO and discoverability.
+- Reduced the ECS task count to 1 to optimize resource usage.
+- Updated the meta title and description for better search engine ranking.
+- Made updates to Blog 2 content.
+
+### November 1, 2024
+
+- **Grafana Configuration**: Grafana requires the `grafana-datasources.yaml` file to configure Loki as the data source.
+- Attempted to implement a container startup script to pull the configuration file from S3 and restart Grafana. However, this method didn't work as expected.
+- Solution: Baked the `grafana-datasources.yaml` file into the Docker image to ensure it's available when ECS starts the Grafana container.
+
+### November 3, 2024
+
+- Spent significant time configuring a reliable shipper/forwarder to send CloudWatch logs to Loki and make them available in Grafana.
+- Detailed notes on this process are documented in `logging.md`.
+
+---

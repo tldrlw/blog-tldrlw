@@ -30,6 +30,14 @@ Ultimately, the **AWS Lambda** method is the most appropriate solution for your 
 - **Serverless and Scalable**: Using AWS Lambda for log forwarding is a serverless approach, meaning you don’t have to worry about managing or scaling any infrastructure. AWS automatically handles execution and scaling based on the volume of logs, making it cost-effective and easy to maintain.
 - **Flexibility in Log Formatting**: With AWS Lambda, you have full control over how you format and send logs to Loki. This allows you to customize the log payloads, add labels, and ensure logs are structured in a way that works well with Loki and Grafana.
 
+To securely and efficiently forward logs from **AWS Lambda** to **Loki** and visualize them using **Grafana**, we set up the following configuration:
+
+- **Private Subnet for Lambda**: We configured the Lambda function to run in a private subnet, allowing it to be part of a security group. This setup enables precise network access control, making it possible for the Lambda function to communicate securely with the Loki ECS container.
+- **Why Not Use a Public Subnet?**: Running the Lambda function in a **public subnet** would expose it to the internet, which is not recommended for security reasons. In AWS, Lambda functions do not automatically get public IP addresses, even if they are placed in a public subnet. As a result, to communicate with external services or private resources securely, the Lambda function must be placed in a **private subnet**. This ensures that the Lambda function can leverage a NAT Gateway for internet access while remaining protected from direct exposure. Additionally, being in a private subnet allows the Lambda function to have secure, controlled communication with the Loki ECS container using a security group.
+- **Restricted Ingress for Loki**: We assigned the Lambda function’s security group to the Loki ECS container, granting access on port 3100. Additionally, we added the Grafana ECS task’s security group as another allowed ingress on port 3100, ensuring Grafana can query Loki for log data.
+- **ALB Health Check Configuration**: To keep the Loki ECS container healthy and accessible via the ALB, we created an ingress rule that allows traffic from the ALB’s security group on port 3100. This rule ensures the ALB health checks work properly, maintaining high availability and reliability for the logging service.
+- **Enhanced Security and Monitoring**: By restricting access to Loki through specific security groups, we minimized the exposure of our logging infrastructure, while also ensuring seamless integration and monitoring with Grafana.
+
 ---
 
 # Summary
