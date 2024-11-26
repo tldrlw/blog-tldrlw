@@ -13,6 +13,10 @@ resource "aws_subnet" "public" {
   # data.aws_availability_zones.available.names[count.index], will dynamically get the available zones for the region you’re in
   # makes your configuration more flexible and adaptable to different regions with different availability zones
   # all regions have a MINIMUM of 3 availability zones, so this will alert you when trying to create x subnets > 3 in an unsupported region
+  tags = {
+    Name = "public-${var.APP_NAME}-${data.aws_availability_zones.available.names[count.index]}"
+    # ^ shared with monza-tldrlw
+  }
 }
 
 resource "aws_internet_gateway" "main" {
