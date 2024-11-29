@@ -9,6 +9,6 @@ module "vpn_client" {
   TRUSTED_CIDR        = "100.15.211.96/32"
   VPC_CIDR            = "10.0.0.0/16"
   VPC_ID              = aws_vpc.main.id
-  VPN_INACTIVE_PERIOD = "300" # seconds
+  VPN_INACTIVE_PERIOD = "600" # in seconds, 600 = 10 minutes
 }
 # rm -rf .terraform/modules
