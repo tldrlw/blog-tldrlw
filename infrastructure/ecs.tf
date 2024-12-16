@@ -6,14 +6,15 @@ resource "aws_ecs_cluster" "main" {
   # loki-tldrlw
   # grafana-tldrlw
 }
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_cluster#attribute-reference
 
 module "ecs_service" {
   source                      = "git::https://github.com/tldrlw/terraform-modules.git//ecs-service"
-  app_name                    = var.APP_NAME
+  APP_NAME                    = var.APP_NAME
   ecr_repo_url                = aws_ecr_repository.main.repository_url
   image_tag                   = var.IMAGE_TAG
   ecs_cluster_id              = aws_ecs_cluster.main.id
-  task_count                  = 1
+  ECS_CLUSTER_NAME            = "main"
   alb_target_group_arn        = module.main.alb_target_group_arns[0]
   source_security_group_id    = module.main.alb_security_group_id
   security_group_egress_cidrs = ["0.0.0.0/0"]

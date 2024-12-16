@@ -30,8 +30,8 @@ data "aws_ssm_parameter" "grafana_password_refayat" {
 
 // getting cloudwatch log group ARNs to pass into logging module
 
-data "aws_cloudwatch_log_group" "lambda_monza_tldrlw_get" {
-  name = "/aws/lambda/monza-tldrlw-get"
+data "aws_cloudwatch_log_group" "lambda_monza_tldrlw_get_insights" {
+  name = "/aws/lambda/monza-tldrlw-get-insights"
 }
 
 data "aws_cloudwatch_log_group" "ecs_monza_tldrlw" {
@@ -40,4 +40,8 @@ data "aws_cloudwatch_log_group" "ecs_monza_tldrlw" {
 
 data "aws_cloudwatch_log_group" "lambda_monza_tldrlw_get_constructors" {
   name = "/aws/lambda/monza-tldrlw-get-constructors"
+}
+
+data "aws_cloudwatch_log_group" "lambda_monza_tldrlw_get_results" {
+  name = "/aws/lambda/monza-tldrlw-get-results"
 }
