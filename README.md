@@ -15,6 +15,10 @@ The following infrastructure components in this repository are shared across oth
 
 ## Change Log
 
+### December 21, 2024
+
+- Destroyed ECS service module instantiation for blog app for cost savings
+
 ### September 26, 2024
 
 - Added a sitemap for improved SEO and discoverability.
