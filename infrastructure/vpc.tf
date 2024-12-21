@@ -13,6 +13,10 @@ resource "aws_subnet" "public" {
   # data.aws_availability_zones.available.names[count.index], will dynamically get the available zones for the region you’re in
   # makes your configuration more flexible and adaptable to different regions with different availability zones
   # all regions have a MINIMUM of 3 availability zones, so this will alert you when trying to create x subnets > 3 in an unsupported region
+  tags = {
+    Name = "public-${var.APP_NAME}-${data.aws_availability_zones.available.names[count.index]}"
+    # ^ shared with monza-tldrlw
+  }
 }
 
 resource "aws_internet_gateway" "main" {
@@ -40,7 +44,7 @@ resource "aws_route_table_association" "public" {
 # Deploy a NAT Gateway in one of your public subnets and configure the route tables of the private subnets to route outbound traffic through this NAT Gateway.
 
 ### for logging λs ###
-# # NAT Gateway in a Public Subnet
+# NAT Gateway in a Public Subnet
 # resource "aws_nat_gateway" "main" {
 #   allocation_id = aws_eip.nat.id
 #   subnet_id     = aws_subnet.public[0].id
@@ -55,9 +59,9 @@ resource "aws_route_table_association" "public" {
 
 # # Private Subnets
 # resource "aws_subnet" "private" {
-#   count                   = 3
-#   vpc_id                  = aws_vpc.main.id
-#   cidr_block              = "10.0.${count.index + 10}.0/24" # Example CIDR blocks for private subnets
+#   count      = 3
+#   vpc_id     = aws_vpc.main.id
+#   cidr_block = "10.0.${20 + count.index}.0/24" # Adjusted CIDR blocks to avoid overlap
 #   availability_zone       = data.aws_availability_zones.available.names[count.index]
 #   map_public_ip_on_launch = false
 # }
