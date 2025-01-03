@@ -1,3 +1,5 @@
+# tf destroy ran on 1/3/24
+
 # blog-tldrlw
 
 This repository contains infrastructure and application code for **blog-tldrlw**, and shared components of the tldrlw ecosystem. It includes resources that are utilized by multiple applications running in the `us-east-1` region, ensuring efficient and centralized management.
